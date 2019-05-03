@@ -7,6 +7,7 @@ import changeNavigationBarColor, {
 import { Col, Row, Grid } from "react-native-easy-grid";
 import ViewPager from "@react-native-community/viewpager";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Map from "./Map";
 
 
 type Props = {};
@@ -22,75 +23,76 @@ export default class App extends Component<Props> {
                 initialPage={0}>
                 <View style={styles.container} key="1">
 
-                    <StatusBar backgroundColor="#66BB6A" barStyle="light-content" />
-                    <Grid>
-                        <Col size={1}></Col>
-                        <Col size={4}>
-                            <Row size={1}></Row>
-                            <Row size={4}>
-                                <View style={styles.containerView}>
-                                    <Text style={styles.textIntro}>Welcome to Geco. Take part in making the world a better place.</Text>
-                                </View>
-                            </Row>
-                            <Row size={1}>
-                                <Grid>
-                                    <Col size={1}></Col>
-                                    <Col size={1}>
-                                        <View style={styles.colorView}>
-                                            <Icon style={styles.centerIcon} color='#43A047' name="circle" size={20}/>
-                                        </View>
-                                    </Col>
-                                    <Col size={1}>
-                                        <View style={styles.colorView}>
-                                            <Icon style={styles.centerIcon} color="#C8E6C9" name="circle" size={20}/>
-                                        </View>
-                                    </Col>
-                                    <Col size={1}>
-                                        <View style={styles.colorView}>
-                                            <Icon style={styles.centerIcon} color="#C8E6C9" name="circle" size={20}/>
-                                        </View>
-                                    </Col>
-                                    <Col size={1}></Col>
-                                </Grid>
-                            </Row>
-                        </Col>
-                        <Col size={1}></Col>
-                    </Grid>
-                </View>
-                <View style={styles.container} key="2">
-                    <Grid>
-                        <Col size={1}></Col>
-                        <Col size={4}>
-                            <Row size={1}></Row>
-                            <Row size={4}>
-                                <View style={styles.containerView}>
-                                    <Text style={styles.textIntro}>Geco helps you by measuring your carbon footprint.</Text>
-                                </View>
-                            </Row>
-                            <Row size={1}>
-                                <Grid>
-                                    <Col size={1}></Col>
-                                    <Col size={1}>
-                                        <View style={styles.colorView}>
-                                            <Icon style={styles.centerIcon} color='#C8E6C9' name="circle" size={20}/>
-                                        </View>
-                                    </Col>
-                                    <Col size={1}>
-                                        <View style={styles.colorView}>
-                                            <Icon style={styles.centerIcon} color="#43A047" name="circle" size={20}/>
-                                        </View>
-                                    </Col>
-                                    <Col size={1}>
-                                        <View style={styles.colorView}>
-                                            <Icon style={styles.centerIcon} color="#C8E6C9" name="circle" size={20}/>
-                                        </View>
-                                    </Col>
-                                    <Col size={1}></Col>
-                                </Grid>
-                            </Row>
-                        </Col>
-                        <Col size={1}></Col>
-                    </Grid>
+                    {/*<StatusBar backgroundColor="#66BB6A" barStyle="light-content" />*/}
+                {/*    <Grid>*/}
+                {/*        <Col size={1}></Col>*/}
+                {/*        <Col size={4}>*/}
+                {/*            <Row size={1}></Row>*/}
+                {/*            <Row size={4}>*/}
+                {/*                <View style={styles.containerView}>*/}
+                {/*                    <Text style={styles.textIntro}>Welcome to Geco. Take part in making the world a better place.</Text>*/}
+                {/*                </View>*/}
+                {/*            </Row>*/}
+                {/*            <Row size={1}>*/}
+                {/*                <Grid>*/}
+                {/*                    <Col size={1}></Col>*/}
+                {/*                    <Col size={1}>*/}
+                {/*                        <View style={styles.colorView}>*/}
+                {/*                            <Icon style={styles.centerIcon} color='#43A047' name="circle" size={20}/>*/}
+                {/*                        </View>*/}
+                {/*                    </Col>*/}
+                {/*                    <Col size={1}>*/}
+                {/*                        <View style={styles.colorView}>*/}
+                {/*                            <Icon style={styles.centerIcon} color="#C8E6C9" name="circle" size={20}/>*/}
+                {/*                        </View>*/}
+                {/*                    </Col>*/}
+                {/*                    <Col size={1}>*/}
+                {/*                        <View style={styles.colorView}>*/}
+                {/*                            <Icon style={styles.centerIcon} color="#C8E6C9" name="circle" size={20}/>*/}
+                {/*                        </View>*/}
+                {/*                    </Col>*/}
+                {/*                    <Col size={1}></Col>*/}
+                {/*                </Grid>*/}
+                {/*            </Row>*/}
+                {/*        </Col>*/}
+                {/*        <Col size={1}></Col>*/}
+                {/*    </Grid>*/}
+                {/*</View>*/}
+                {/*<View style={styles.container} key="2">*/}
+                {/*    <Grid>*/}
+                {/*        <Col size={1}></Col>*/}
+                {/*        <Col size={4}>*/}
+                {/*            <Row size={1}></Row>*/}
+                {/*            <Row size={4}>*/}
+                {/*                <View style={styles.containerView}>*/}
+                {/*                    <Text style={styles.textIntro}>Geco helps you by measuring your carbon footprint.</Text>*/}
+                {/*                </View>*/}
+                {/*            </Row>*/}
+                {/*            <Row size={1}>*/}
+                {/*                <Grid>*/}
+                {/*                    <Col size={1}></Col>*/}
+                {/*                    <Col size={1}>*/}
+                {/*                        <View style={styles.colorView}>*/}
+                {/*                            <Icon style={styles.centerIcon} color='#C8E6C9' name="circle" size={20}/>*/}
+                {/*                        </View>*/}
+                {/*                    </Col>*/}
+                {/*                    <Col size={1}>*/}
+                {/*                        <View style={styles.colorView}>*/}
+                {/*                            <Icon style={styles.centerIcon} color="#43A047" name="circle" size={20}/>*/}
+                {/*                        </View>*/}
+                {/*                    </Col>*/}
+                {/*                    <Col size={1}>*/}
+                {/*                        <View style={styles.colorView}>*/}
+                {/*                            <Icon style={styles.centerIcon} color="#C8E6C9" name="circle" size={20}/>*/}
+                {/*                        </View>*/}
+                {/*                    </Col>*/}
+                {/*                    <Col size={1}></Col>*/}
+                {/*                </Grid>*/}
+                {/*            </Row>*/}
+                {/*        </Col>*/}
+                {/*        <Col size={1}></Col>*/}
+                {/*    </Grid>*/}
+                <Map/>
                 </View>
             </ViewPager>
         );
