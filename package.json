@@ -11,6 +11,7 @@
     "react": "16.8.3",
     "react-native": "^0.59.6",
     "react-native-easy-grid": "^0.2.1",
+    "react-native-geocoding": "^0.3.0",
     "react-native-maps": "^0.24.2",
     "react-native-maps-directions": "^1.6.0",
     "react-native-navigation-bar-color": "0.0.9",
