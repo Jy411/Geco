@@ -21,6 +21,7 @@ export default class App extends Component<Props> {
                 style={styles.viewPager}
                 initialPage={0}>
                 <View style={styles.container} key="1">
+
                     <StatusBar backgroundColor="#66BB6A" barStyle="light-content" />
                     <Grid>
                         <Col size={1}></Col>
