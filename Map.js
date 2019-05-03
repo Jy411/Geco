@@ -10,8 +10,13 @@ import MapMarker from "react-native-maps/lib/components/MapMarker";
 const origin = {latitude: 37.3318456, longitude: -122.0296002};
 const destination = {latitude: 37.771707, longitude: -122.4053769};
 
+type Props = {
+    o:string;
+    d:string;
+}
 
-class Map extends React.Component {
+
+class Map extends React.Component<Props> {
 
     constructor(props) {
 
@@ -35,15 +40,16 @@ class Map extends React.Component {
 
         return (
 
-
             <MapView style={styles.map} initialRegion={{
-
                 latitude: 37.3318456,
                 longitude: -122.0296002,
                 latitudeDelta: 1,
                 longitudeDelta: 1
-
-            }}>
+            }}
+            mapType={"standard"}
+            showsMyLocationButton={true}
+            showsPointsOfInterest={true}
+            >
 
                 {!!this.state.latitude && !!this.state.longitude && <MapView.Marker
 
@@ -74,9 +80,7 @@ class Map extends React.Component {
 const styles = StyleSheet.create({
 
     container: {
-
         position: 'absolute',
-
         top: 0,
 
         left: 0,
@@ -95,13 +99,13 @@ const styles = StyleSheet.create({
 
         position: 'absolute',
 
-        top: 0,
+        top: 80,
 
         left: 0,
 
         right: 0,
 
-        bottom: 0,
+        bottom: 80,
 
     },
 
