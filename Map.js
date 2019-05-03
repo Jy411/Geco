@@ -4,6 +4,7 @@ import { AppRegistry, StyleSheet, Dimensions, View, Text } from "react-native";
 
 import MapView from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
+import MapMarker from "react-native-maps/lib/components/MapMarker";
 
 
 const origin = {latitude: 37.3318456, longitude: -122.0296002};
@@ -30,12 +31,10 @@ class Map extends React.Component {
     }
 
 
-
-
-
     render() {
 
         return (
+
 
             <MapView style={styles.map} initialRegion={{
 
@@ -53,7 +52,7 @@ class Map extends React.Component {
                     title={"Your Location"}
 
                 />}
-
+                <MapMarker coordinate={{"latitude": 37.3318456, longitude: -122.0296002}}/>
                 <MapViewDirections
                     origin={origin}
                     destination={destination}
