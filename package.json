@@ -10,16 +10,24 @@
     "@react-native-community/viewpager": "^1.1.6",
     "react": "16.8.3",
     "react-native": "^0.59.6",
+<<<<<<< master
     "react-native-app-intro-slider": "latest",
     "react-native-easy-grid": "^0.2.1",
     "react-native-geocoding": "^0.3.0",
     "react-native-google-places-autocomplete": "^1.3.9",
+=======
+    "react-native-app-intro-slider": "^2.0.1",
+    "react-native-easy-grid": "^0.2.1",
+    "react-native-gesture-handler": "^1.2.1",
+    "react-native-google-places-autocomplete": "latest",
+>>>>>>> added IntroSlider, TODO implement it to app.js
     "react-native-maps": "^0.24.2",
     "react-native-maps-directions": "^1.6.0",
     "react-native-navigation-bar-color": "0.0.9",
     "react-native-responsive-image": "^2.3.1",
     "react-native-responsive-screen": "^1.2.2",
     "react-native-vector-icons": "^6.4.2",
+    "react-navigation": "latest",
     "rn-viewpager": "^1.2.9"
   },
   "devDependencies": {
