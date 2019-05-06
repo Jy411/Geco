@@ -4,13 +4,18 @@ import { AppRegistry, StyleSheet, Dimensions, View, Text } from "react-native";
 
 import MapView from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
+import MapMarker from "react-native-maps/lib/components/MapMarker";
 
 
-const origin = {latitude: 37.3318456, longitude: -122.0296002};
-const destination = {latitude: 37.771707, longitude: -122.4053769};
+type Props = {
+    olong:number;
+    olat:number;
+    dlong:number;
+    dlat:number;
+}
 
 
-class Map extends React.Component {
+class Map extends React.Component<Props> {
 
     constructor(props) {
 
@@ -30,21 +35,21 @@ class Map extends React.Component {
     }
 
 
-
-
-
     render() {
-
+        const origin = {latitude: this.props.olat || 0, longitude: this.props.olong || 0};
+        const destination = {latitude: this.props.dlat || 0, longitude: this.props.dlong ||0};
         return (
 
             <MapView style={styles.map} initialRegion={{
-
-                latitude: 37.3318456,
-                longitude: -122.0296002,
+                latitude: 3.0630348,
+                longitude: 101.614712,
                 latitudeDelta: 1,
                 longitudeDelta: 1
-
-            }}>
+            }}
+            mapType={"standard"}
+            showsMyLocationButton={true}
+            showsPointsOfInterest={true}
+            >
 
                 {!!this.state.latitude && !!this.state.longitude && <MapView.Marker
 
@@ -53,7 +58,8 @@ class Map extends React.Component {
                     title={"Your Location"}
 
                 />}
-
+                {origin && <MapMarker coordinate={origin}/>}
+                {destination && <MapMarker coordinate={destination}/>}
                 <MapViewDirections
                     origin={origin}
                     destination={destination}
@@ -75,10 +81,9 @@ class Map extends React.Component {
 const styles = StyleSheet.create({
 
     container: {
-
         position: 'absolute',
 
-        top: 0,
+        top: 120,
 
         left: 0,
 
@@ -94,16 +99,17 @@ const styles = StyleSheet.create({
 
     map: {
 
-        position: 'absolute',
 
-        top: 0,
+
+        top: 120,
 
         left: 0,
 
         right: 0,
 
         bottom: 0,
-
+        width:'100%',
+        height:'100%',
     },
 
 });
