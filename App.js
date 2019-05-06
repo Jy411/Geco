@@ -1,43 +1,34 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, TextInput, View, Text, StatusBar, Image } from 'react-native';
+import {Platform, StyleSheet, TextInput, View, Text, StatusBar, Image, Button } from 'react-native';
 import Map from "./Map";
-import Geocoder from 'react-native-geocoding'
 
+import {GooglePlacesAutocomplete} from "react-native-google-places-autocomplete";
+import Place from "./Place";
 
 
 type Props = {};
-export default class App extends Component<Props> {
+type State = {
+    text:string;
+    location:string;
+    lat:string;
+    long:string;
+};
+export default class App extends Component<Props, State> {
     constructor(props) {
         super(props);
-        this.state = {text: ''};
+        this.state = {
+            text: '',
+            location: '',
+            lat: '',
+            long: ''
+        };
     }
 
     render() {
-        Geocoder.init("AIzaSyAXB4arZesKpFxvYR8ZhE0zxhMJ5SZjjl8");
         return (
                 <View style={styles.container} key="1">
-                    <TextInput
-                        style={{height: 40, position:"absolute", top:0}}
-                        placeholder="Origin address"
-                        onChangeText={(text) => this.setState({text})}
-                    />
-                    <Text style={{height: 40, fontSize: 42, position:"absolute", bottom:0}}>
-                        {this.state.text}
-                    </Text>
-                    <Text style={{height: 40, fontSize: 42, position:"absolute", bottom:40}}>
-                        {this.state.text}
-                    </Text>
-                    <TextInput
-                        style={{
-                            height: 40,
-                            position:"absolute",
-                            top:40,
-                            }}
-                        placeholder="Destination address"
-                        onChangeText={(text) => this.setState({text})}
-                    />
-                    <Map o={"a"} d={"d"}/>
 
+                <Place/>
                 </View>
 
         );

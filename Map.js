@@ -7,12 +7,11 @@ import MapViewDirections from "react-native-maps-directions";
 import MapMarker from "react-native-maps/lib/components/MapMarker";
 
 
-const origin = {latitude: 37.3318456, longitude: -122.0296002};
-const destination = {latitude: 37.771707, longitude: -122.4053769};
-
 type Props = {
-    o:string;
-    d:string;
+    olong:number;
+    olat:number;
+    dlong:number;
+    dlat:number;
 }
 
 
@@ -37,12 +36,13 @@ class Map extends React.Component<Props> {
 
 
     render() {
-
+        const origin = {latitude: this.props.olat || 0, longitude: this.props.olong || 0};
+        const destination = {latitude: this.props.dlat || 0, longitude: this.props.dlong ||0};
         return (
 
             <MapView style={styles.map} initialRegion={{
-                latitude: 37.3318456,
-                longitude: -122.0296002,
+                latitude: 3.0630348,
+                longitude: 101.614712,
                 latitudeDelta: 1,
                 longitudeDelta: 1
             }}
@@ -58,7 +58,8 @@ class Map extends React.Component<Props> {
                     title={"Your Location"}
 
                 />}
-                <MapMarker coordinate={{"latitude": 37.3318456, longitude: -122.0296002}}/>
+                {origin && <MapMarker coordinate={origin}/>}
+                {destination && <MapMarker coordinate={destination}/>}
                 <MapViewDirections
                     origin={origin}
                     destination={destination}
@@ -81,7 +82,8 @@ const styles = StyleSheet.create({
 
     container: {
         position: 'absolute',
-        top: 0,
+
+        top: 120,
 
         left: 0,
 
@@ -97,16 +99,17 @@ const styles = StyleSheet.create({
 
     map: {
 
-        position: 'absolute',
 
-        top: 80,
+
+        top: 120,
 
         left: 0,
 
         right: 0,
 
-        bottom: 80,
-
+        bottom: 0,
+        width:'100%',
+        height:'100%',
     },
 
 });
