@@ -1,38 +1,120 @@
 import React, {Component} from 'react';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import Playground from './app/containers/Playground';
-import Home from './app/containers/Home';
-import IntroSlider from './app/containers/IntroSlider';
-import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
+import {Platform, StyleSheet, TextInput, View, Text, StatusBar, Image, Button } from 'react-native';
+import Map from "./app/components/Map";
 
-const TabNavigator = createBottomTabNavigator(
-    {
-        Home: Home,
-        Playground: IntroSlider,
-    },
-    {
-        defaultNavigationOptions: ({ navigation }) => ({
-            tabBarIcon: ({ focused, horizontal, tintColor }) => {
-                const { routeName } = navigation.state;
-                let IconComponent = Ionicons;
-                let iconName;
-                if (routeName === 'Home') {
-                    iconName = `ios-information-circle${focused ? '' : '-outline'}`;
-                    // Sometimes we want to add badges to some icons.
-                    // You can check the implementation below.
-                } else if (routeName === 'Playground') {
-                    iconName = `ios-options`;
-                }
+import {GooglePlacesAutocomplete} from "react-native-google-places-autocomplete";
+import Place from "./Place";
 
-                // You can return any component that you like here!
-                return <IconComponent name={iconName} size={25} color={tintColor} />;
-            },
-        }),
-        tabBarOptions: {
-            activeTintColor: 'tomato',
-            inactiveTintColor: 'gray',
-        },
+
+export default class App extends Component<Props, State> {
+    constructor(props) {
+        super(props);
     }
-);
 
-export default createAppContainer(TabNavigator);
+    render() {
+        return (
+
+        );
+    }
+
+
+
+}
+
+const styles = StyleSheet.create({
+    viewPager: {
+        flex: 1
+    },
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    textIntro: {
+        fontFamily: 'SFCompactDisplayBold',
+        fontSize: 30,
+        fontWeight: 'bold',
+        color: '#43A047',
+        alignSelf: 'center',
+    },
+    containerView: {
+        justifyContent: 'center',
+        flex: 1,
+    },
+    colorView: {
+        justifyContent: 'center',
+    },
+    centerIcon: {
+        alignSelf: 'center',
+    },
+});
+
+{/*<StatusBar backgroundColor="#66BB6A" barStyle="light-content" />*/}
+{/*    <Grid>*/}
+{/*        <Col size={1}></Col>*/}
+{/*        <Col size={4}>*/}
+{/*            <Row size={1}></Row>*/}
+{/*            <Row size={4}>*/}
+{/*                <View style={styles.containerView}>*/}
+{/*                    <Text style={styles.textIntro}>Welcome to Geco. Take part in making the world a better place.</Text>*/}
+{/*                </View>*/}
+{/*            </Row>*/}
+{/*            <Row size={1}>*/}
+{/*                <Grid>*/}
+{/*                    <Col size={1}></Col>*/}
+{/*                    <Col size={1}>*/}
+{/*                        <View style={styles.colorView}>*/}
+{/*                            <Icon style={styles.centerIcon} color='#43A047' name="circle" size={20}/>*/}
+{/*                        </View>*/}
+{/*                    </Col>*/}
+{/*                    <Col size={1}>*/}
+{/*                        <View style={styles.colorView}>*/}
+{/*                            <Icon style={styles.centerIcon} color="#C8E6C9" name="circle" size={20}/>*/}
+{/*                        </View>*/}
+{/*                    </Col>*/}
+{/*                    <Col size={1}>*/}
+{/*                        <View style={styles.colorView}>*/}
+{/*                            <Icon style={styles.centerIcon} color="#C8E6C9" name="circle" size={20}/>*/}
+{/*                        </View>*/}
+{/*                    </Col>*/}
+{/*                    <Col size={1}></Col>*/}
+{/*                </Grid>*/}
+{/*            </Row>*/}
+{/*        </Col>*/}
+{/*        <Col size={1}></Col>*/}
+{/*    </Grid>*/}
+{/*</View>*/}
+{/*<View style={styles.container} key="2">*/}
+{/*    <Grid>*/}
+{/*        <Col size={1}></Col>*/}
+{/*        <Col size={4}>*/}
+{/*            <Row size={1}></Row>*/}
+{/*            <Row size={4}>*/}
+{/*                <View style={styles.containerView}>*/}
+{/*                    <Text style={styles.textIntro}>Geco helps you by measuring your carbon footprint.</Text>*/}
+{/*                </View>*/}
+{/*            </Row>*/}
+{/*            <Row size={1}>*/}
+{/*                <Grid>*/}
+{/*                    <Col size={1}></Col>*/}
+{/*                    <Col size={1}>*/}
+{/*                        <View style={styles.colorView}>*/}
+{/*                            <Icon style={styles.centerIcon} color='#C8E6C9' name="circle" size={20}/>*/}
+{/*                        </View>*/}
+{/*                    </Col>*/}
+{/*                    <Col size={1}>*/}
+{/*                        <View style={styles.colorView}>*/}
+{/*                            <Icon style={styles.centerIcon} color="#43A047" name="circle" size={20}/>*/}
+{/*                        </View>*/}
+{/*                    </Col>*/}
+{/*                    <Col size={1}>*/}
+{/*                        <View style={styles.colorView}>*/}
+{/*                            <Icon style={styles.centerIcon} color="#C8E6C9" name="circle" size={20}/>*/}
+{/*                        </View>*/}
+{/*                    </Col>*/}
+{/*                    <Col size={1}></Col>*/}
+{/*                </Grid>*/}
+{/*            </Row>*/}
+{/*        </Col>*/}
+{/*        <Col size={1}></Col>*/}
+{/*    </Grid>*/}
