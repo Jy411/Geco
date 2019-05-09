@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, StatusBar } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import changeNavigationBarColor from 'react-native-navigation-bar-color';
+import Home from './app/containers/Home';
 
 export default class App extends Component<Props, State> {
     constructor(props) {
@@ -15,7 +16,6 @@ export default class App extends Component<Props, State> {
         StatusBar.setBackgroundColor("#689F38");
     }
 
-
     _onDone = () => {
         this.setState({showRealApp: true});
     };
@@ -27,18 +27,7 @@ export default class App extends Component<Props, State> {
     render() {
         if (this.state.showRealApp) {
             return (
-                <View
-                    style={{
-                        flex: 1,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        padding: 50,
-                    }}>
-                    <Text>
-                        This will be your screen when you click Skip from any slide or Done
-                        button at last
-                    </Text>
-                </View>
+                <Home/>
             );
         } else {
             return (
@@ -54,6 +43,8 @@ export default class App extends Component<Props, State> {
         }
     }
 }
+
+
 
 const styles = StyleSheet.create({
     image: {
@@ -106,3 +97,4 @@ const slides = [
         backgroundColor: '#AED581',
     },
 ];
+

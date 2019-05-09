@@ -17,8 +17,11 @@
     "react-native-maps": "^0.24.2",
     "react-native-maps-directions": "^1.6.0",
     "react-native-navigation-bar-color": "0.0.9",
+    "react-native-paper": "^2.15.2",
+    "react-native-responsive-screen": "latest",
     "react-native-vector-icons": "^6.4.2",
     "react-navigation": "latest",
+    "react-navigation-material-bottom-tabs": "^1.0.0",
     "rn-viewpager": "^1.2.9"
   },
   "devDependencies": {
