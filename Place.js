@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, TextInput, View, Text, StatusBar, Image, Button } from 'react-native';
-import Map from "./Map";
+import Map from "./app/components/Map";
 
 import {GooglePlacesAutocomplete} from "react-native-google-places-autocomplete";
 
