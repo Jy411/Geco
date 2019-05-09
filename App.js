@@ -1,120 +1,108 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, TextInput, View, Text, StatusBar, Image, Button } from 'react-native';
-import Map from "./app/components/Map";
-
-import {GooglePlacesAutocomplete} from "react-native-google-places-autocomplete";
-import Place from "./Place";
-
+import { StyleSheet, View, Text, StatusBar } from 'react-native';
+import AppIntroSlider from 'react-native-app-intro-slider';
+import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import changeNavigationBarColor from 'react-native-navigation-bar-color';
 
 export default class App extends Component<Props, State> {
     constructor(props) {
         super(props);
+        this.state = {
+            // To determine whether to show the introduction sliders
+            showRealApp: false,
+        };
+        changeNavigationBarColor("#689F38");
+        StatusBar.setBackgroundColor("#689F38");
     }
+
+
+    _onDone = () => {
+        this.setState({showRealApp: true});
+    };
+
+    _onSkip = () => {
+        this.setState({showRealApp: true});
+    };
 
     render() {
-        return (
-
-        );
+        if (this.state.showRealApp) {
+            return (
+                <View
+                    style={{
+                        flex: 1,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        padding: 50,
+                    }}>
+                    <Text>
+                        This will be your screen when you click Skip from any slide or Done
+                        button at last
+                    </Text>
+                </View>
+            );
+        } else {
+            return (
+                <AppIntroSlider
+                    slides={slides}
+                    //coming from the JsonArray below
+                    onDone={this._onDone}
+                    //Handler for the done On last slide
+                    showSkipButton={true}
+                    onSkip={this._onSkip}
+                />
+            );
+        }
     }
-
-
-
 }
 
 const styles = StyleSheet.create({
-    viewPager: {
-        flex: 1
+    image: {
+        // width: 250,
+        height: hp("70%"),
+        bottom: hp("5%"),
+        resizeMode: 'center',
     },
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    textIntro: {
-        fontFamily: 'SFCompactDisplayBold',
-        fontSize: 30,
+    sliderText: {
+        color: '#FFFFFF',
+        fontSize: 28,
+        bottom: hp("5%"),
+        textAlign: 'center',
+        textAlignVertical: 'top',
         fontWeight: 'bold',
-        color: '#43A047',
-        alignSelf: 'center',
-    },
-    containerView: {
-        justifyContent: 'center',
-        flex: 1,
-    },
-    colorView: {
-        justifyContent: 'center',
-    },
-    centerIcon: {
-        alignSelf: 'center',
     },
 });
 
-{/*<StatusBar backgroundColor="#66BB6A" barStyle="light-content" />*/}
-{/*    <Grid>*/}
-{/*        <Col size={1}></Col>*/}
-{/*        <Col size={4}>*/}
-{/*            <Row size={1}></Row>*/}
-{/*            <Row size={4}>*/}
-{/*                <View style={styles.containerView}>*/}
-{/*                    <Text style={styles.textIntro}>Welcome to Geco. Take part in making the world a better place.</Text>*/}
-{/*                </View>*/}
-{/*            </Row>*/}
-{/*            <Row size={1}>*/}
-{/*                <Grid>*/}
-{/*                    <Col size={1}></Col>*/}
-{/*                    <Col size={1}>*/}
-{/*                        <View style={styles.colorView}>*/}
-{/*                            <Icon style={styles.centerIcon} color='#43A047' name="circle" size={20}/>*/}
-{/*                        </View>*/}
-{/*                    </Col>*/}
-{/*                    <Col size={1}>*/}
-{/*                        <View style={styles.colorView}>*/}
-{/*                            <Icon style={styles.centerIcon} color="#C8E6C9" name="circle" size={20}/>*/}
-{/*                        </View>*/}
-{/*                    </Col>*/}
-{/*                    <Col size={1}>*/}
-{/*                        <View style={styles.colorView}>*/}
-{/*                            <Icon style={styles.centerIcon} color="#C8E6C9" name="circle" size={20}/>*/}
-{/*                        </View>*/}
-{/*                    </Col>*/}
-{/*                    <Col size={1}></Col>*/}
-{/*                </Grid>*/}
-{/*            </Row>*/}
-{/*        </Col>*/}
-{/*        <Col size={1}></Col>*/}
-{/*    </Grid>*/}
-{/*</View>*/}
-{/*<View style={styles.container} key="2">*/}
-{/*    <Grid>*/}
-{/*        <Col size={1}></Col>*/}
-{/*        <Col size={4}>*/}
-{/*            <Row size={1}></Row>*/}
-{/*            <Row size={4}>*/}
-{/*                <View style={styles.containerView}>*/}
-{/*                    <Text style={styles.textIntro}>Geco helps you by measuring your carbon footprint.</Text>*/}
-{/*                </View>*/}
-{/*            </Row>*/}
-{/*            <Row size={1}>*/}
-{/*                <Grid>*/}
-{/*                    <Col size={1}></Col>*/}
-{/*                    <Col size={1}>*/}
-{/*                        <View style={styles.colorView}>*/}
-{/*                            <Icon style={styles.centerIcon} color='#C8E6C9' name="circle" size={20}/>*/}
-{/*                        </View>*/}
-{/*                    </Col>*/}
-{/*                    <Col size={1}>*/}
-{/*                        <View style={styles.colorView}>*/}
-{/*                            <Icon style={styles.centerIcon} color="#43A047" name="circle" size={20}/>*/}
-{/*                        </View>*/}
-{/*                    </Col>*/}
-{/*                    <Col size={1}>*/}
-{/*                        <View style={styles.colorView}>*/}
-{/*                            <Icon style={styles.centerIcon} color="#C8E6C9" name="circle" size={20}/>*/}
-{/*                        </View>*/}
-{/*                    </Col>*/}
-{/*                    <Col size={1}></Col>*/}
-{/*                </Grid>*/}
-{/*            </Row>*/}
-{/*        </Col>*/}
-{/*        <Col size={1}></Col>*/}
-{/*    </Grid>*/}
+const slides = [
+    {
+        key: 's1',
+        text: 'Welcome to Geco',
+        textStyle: styles.sliderText,
+        image: require('./app/images/HDTree1.png'),
+        imageStyle: styles.image,
+        backgroundColor: '#AED581',
+    },
+    {
+        key: 's2',
+        text: 'Geco helps measure your impact on the environment',
+        textStyle: styles.sliderText,
+        image: require('./app/images/HDTree3.png'),
+        imageStyle: styles.image,
+        backgroundColor: '#AED581',
+    },
+    {
+        key: 's3',
+        text: 'Each small step brings us closer to our goal',
+        textStyle: styles.sliderText,
+        image: require('./app/images/HDTree5.png'),
+        imageStyle: styles.image,
+        backgroundColor: '#AED581',
+    },
+    {
+        key: 's4',
+        text: 'The best time to plant a tree was 20 years ago. The second best time is now.',
+        textStyle: styles.sliderText,
+        image: require('./app/images/earth.png'),
+        imageStyle: styles.image,
+        backgroundColor: '#AED581',
+    },
+];
