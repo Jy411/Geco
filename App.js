@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 <<<<<<< master
+<<<<<<< master
+=======
+>>>>>>> Merge branch 'master' of https://github.com/Jy411/Geco into jy-geco
 import { StyleSheet, View, Text, StatusBar } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
@@ -81,6 +84,14 @@ const slides = [
         image: require('./app/images/HDTree1.png'),
         imageStyle: styles.image,
         backgroundColor: '#AED581',
+<<<<<<< master
+    },
+    {
+        key: 's2',
+        text: 'Geco helps measure your impact on the environment',
+        textStyle: styles.sliderText,
+        image: require('./app/images/HDTree3.png'),
+=======
     },
     {
         key: 's2',
@@ -91,6 +102,16 @@ const slides = [
         backgroundColor: '#AED581',
     },
     {
+        key: 's3',
+        text: 'Each small step brings us closer to our goal',
+        textStyle: styles.sliderText,
+        image: require('./app/images/HDTree5.png'),
+>>>>>>> Merge branch 'master' of https://github.com/Jy411/Geco into jy-geco
+        imageStyle: styles.image,
+        backgroundColor: '#AED581',
+    },
+    {
+<<<<<<< master
         key: 's3',
         text: 'Each small step brings us closer to our goal',
         textStyle: styles.sliderText,
@@ -146,3 +167,13 @@ const TabNavigator = createBottomTabNavigator(
 
 export default createAppContainer(TabNavigator);
 >>>>>>> added IntroSlider, TODO implement it to app.js
+=======
+        key: 's4',
+        text: 'The best time to plant a tree was 20 years ago. The second best time is now.',
+        textStyle: styles.sliderText,
+        image: require('./app/images/earth.png'),
+        imageStyle: styles.image,
+        backgroundColor: '#AED581',
+    },
+];
+>>>>>>> Merge branch 'master' of https://github.com/Jy411/Geco into jy-geco
