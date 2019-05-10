@@ -14,10 +14,10 @@ export default class App extends Component<Props, State> {
         super(props);
         this.state = {
             // To determine whether to show the introduction sliders
-            showRealApp: false,
+            showRealApp: true,
         };
-        changeNavigationBarColor("#689F38");
-        StatusBar.setBackgroundColor("#689F38");
+        changeNavigationBarColor("#388E3C");
+        StatusBar.setBackgroundColor("#388E3C");
     }
 
     _onDone = () => {
@@ -74,6 +74,7 @@ const slides = [
         textStyle: styles.sliderText,
         image: require('./app/images/HDTree1.png'),
         imageStyle: styles.image,
+<<<<<<< master
         backgroundColor: '#AED581',
 <<<<<<< master
     },
@@ -83,6 +84,9 @@ const slides = [
         textStyle: styles.sliderText,
         image: require('./app/images/HDTree3.png'),
 =======
+=======
+        backgroundColor: '#a4df92',
+>>>>>>> - Added bottom tab navigation - TODO add icons, readability, navigating to pages
     },
     {
         key: 's2',
@@ -90,7 +94,7 @@ const slides = [
         textStyle: styles.sliderText,
         image: require('./app/images/HDTree3.png'),
         imageStyle: styles.image,
-        backgroundColor: '#AED581',
+        backgroundColor: '#a4df92',
     },
     {
         key: 's3',
@@ -116,7 +120,7 @@ const slides = [
         textStyle: styles.sliderText,
         image: require('./app/images/earth.png'),
         imageStyle: styles.image,
-        backgroundColor: '#AED581',
+        backgroundColor: '#a4df92',
     },
 ];
 =======
@@ -164,7 +168,7 @@ export default createAppContainer(TabNavigator);
         textStyle: styles.sliderText,
         image: require('./app/images/earth.png'),
         imageStyle: styles.image,
-        backgroundColor: '#AED581',
+        backgroundColor: '#a4df92',
     },
 ];
 <<<<<<< master

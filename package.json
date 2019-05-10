@@ -17,12 +17,14 @@
     "react-native-google-places-autocomplete": "^1.3.9",
 =======
     "react-native-app-intro-slider": "^2.0.1",
+    "react-native-circular-progress": "latest",
     "react-native-easy-grid": "^0.2.1",
     "react-native-gesture-handler": "^1.2.1",
     "react-native-google-places-autocomplete": "latest",
 >>>>>>> added IntroSlider, TODO implement it to app.js
     "react-native-maps": "^0.24.2",
     "react-native-maps-directions": "^1.6.0",
+    "react-native-material-kit": "^0.5.1",
     "react-native-navigation-bar-color": "0.0.9",
 <<<<<<< master
     "react-native-responsive-image": "^2.3.1",
@@ -30,6 +32,10 @@
 =======
     "react-native-paper": "^2.15.2",
     "react-native-responsive-screen": "latest",
+<<<<<<< master
+>>>>>>> - Added bottom tab navigation - TODO add icons, readability, navigating to pages
+=======
+    "react-native-svg": "latest",
 >>>>>>> - Added bottom tab navigation - TODO add icons, readability, navigating to pages
     "react-native-vector-icons": "^6.4.2",
     "react-navigation": "latest",
