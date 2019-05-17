@@ -1,27 +1,91 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import {createAppContainer} from "react-navigation";
 import {createMaterialBottomTabNavigator} from "react-navigation-material-bottom-tabs";
-import Playground from "./Playground";
-import TravelHistory from "./TravelHistory";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Col, Row, Grid } from "react-native-easy-grid";
+import {heightPercentageToDP as hp, widthPercentageToDP as wp} from "react-native-responsive-screen";
+
+
+import Playground from "./Playground";
+import TravelHistory from "./TravelHistory";
+import DisplayProfile from "../components/DisplayProfile";
+import TotalPoints from "../components/TotalPoints";
 
 
 class Home extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: 'Guy Who Hates Straws',
+        };
+    }
+
+    changeUsername(newName) {
+        this.setState({username: newName})
+    }
+
     render() {
+
         return (
-            <Grid>
-                <Row>
-                    <View style={{backgroundColor: 'yellow'}}></View>
-                </Row>
-                <Row>
-                    <View style={{backgroundColor: 'orange'}}></View>
-                </Row>
-            </Grid>
+            <ScrollView style={homeStyle.scrollView}>
+
+                {/* First Row with avatar and avatar label */}
+                <Grid>
+                    <Row size={1}>
+                        {/* This view is in a row */}
+                        <View style={[homeStyle.centerChildren, homeStyle.setViewWidth, homeStyle.colorView]}>
+                            <DisplayProfile/>
+                            <Text style={homeStyle.avatarText}>{this.state.username}</Text>
+                            {/*<Button*/}
+                            {/*    title="sudo killall"*/}
+                            {/*    type="outline"*/}
+                            {/*    raised*/}
+                            {/*    onPress={this.changeUsername.bind(this, "S8 Sucks")}*/}
+                            {/*/>*/}
+                        </View>
+                        {/* This view is in a row */}
+                    </Row>
+                </Grid>
+
+
+                {/* Second Row */}
+                <Grid>
+                    <Row>
+                        <View style={[homeStyle.centerChildren, homeStyle.setViewWidth]}>
+                            <TotalPoints/>
+                        </View>
+                    </Row>
+                </Grid>
+
+
+            </ScrollView>
         )
     }
 }
+
+
+const homeStyle = StyleSheet.create({
+    scrollView: {
+        flex: 1,
+    },
+    centerChildren: {
+        alignItems: 'center', // center the children inside the view
+        paddingTop: hp(5),
+    },
+    setViewWidth: {
+        width: wp(100),
+    },
+    colorView: {
+        backgroundColor: 'brown', // set the background color of the view
+    },
+    avatarText: {
+        fontSize: 24,
+        color: 'white',
+    },
+
+
+});
 
 const TabNavigator = createMaterialBottomTabNavigator(
     {
@@ -32,7 +96,6 @@ const TabNavigator = createMaterialBottomTabNavigator(
                 tabBarLabel: "Home",
                 tabBarColor: "#768a67",
                 tabBarIcon: <Icon size={24} name="home" color={"#FFFFFF"}/>,
-                // tabBarIcon: <Icon size={24} name="home"/> ,
             }
         },
         Playground: {

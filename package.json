@@ -19,6 +19,7 @@
     "react-native-app-intro-slider": "^2.0.1",
     "react-native-circular-progress": "latest",
     "react-native-easy-grid": "^0.2.1",
+    "react-native-elements": "^1.1.0",
     "react-native-gesture-handler": "^1.2.1",
     "react-native-google-places-autocomplete": "latest",
 >>>>>>> added IntroSlider, TODO implement it to app.js
