@@ -1,9 +1,24 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, TextInput, View, Text, StatusBar, Image, Button } from 'react-native';
+import {Platform, StyleSheet,  TextInput, View, Text, StatusBar, Image, Button } from 'react-native';
 import Map from "./Map";
 
 import {GooglePlacesAutocomplete} from "react-native-google-places-autocomplete";
+import {NavigationApps,actions,mapsTravelModes, googleMapsTravelModes} from "react-native-navigation-apps";
+import { OpenMapDirections } from 'react-native-navigation-directions';
 
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        top:0,
+        bottom:0,
+        width: '100%',
+        height: '100%',
+        position: 'absolute'
+    },
+});
 
 type Props = {};
 type State = {
@@ -42,12 +57,31 @@ export default class Place extends Component<Props, State> {
     onPress () {
         return ;
     }
+    _callShowDirections = (lat:number, long:number, lat2:number, long2:number) => {
+        const startPoint = {
+            longitude: lat,
+            latitude: long
+        }
 
+        const endPoint = {
+            longitude: lat2,
+            latitude: long2
+        }
+
+        const transportPlan = 'd';
+
+        OpenMapDirections(startPoint, endPoint, transportPlan).then(res => {
+            console.log(res)
+        });
+    }
 
     render() {
 
+        // var request = XMLHttpRequest();
+
         return (
-            <View style={styles.container} key="1">
+
+            <View style={styles.container} >
                 {this.state.showSearch && <GooglePlacesAutocomplete
                     placeholder='Search'
                     minLength={2} // minimum length of text to search
@@ -59,10 +93,6 @@ export default class Place extends Component<Props, State> {
                     onPress={(data, details = null) => { this.setState({ location: details.formatted_address, text: details.name, lat:details.geometry.location.lat, long:details.geometry.location.lng, showSearch:false })}}
 
                     styles={{
-                        container:{
-                            top:0,
-                            height:70,
-                        },
                         description: {
                             fontWeight: 'bold',
                             backgroundColor: 'white',
@@ -127,40 +157,31 @@ export default class Place extends Component<Props, State> {
                     onPress={(data, details = null) => { this.setState({ location2: details.formatted_address, text2: details.name, lat2:details.geometry.location.lat, long2:details.geometry.location.lng, showSearch2:false })}}
 
                     styles={{
-                        container:{
-                            top:40,
-                            left:0,
-                            position:'absolute',
-                            height:70,
-                        },
+
                         description: {
-                            left:0,
                             fontWeight: 'bold',
                             backgroundColor: 'white',
                         },
                         predefinedPlacesDescription: {
-                            left:0,
                             color: '#1faadb',
                             backgroundColor: 'white',
                         },
                         textInputContainer: {
                             top: 40,
-                            left:0,
                             borderBottomWidth: 0,
                             borderTopWidth: 0,
                             height: 40,
-                            width: '100%',
-                            position:'absolute',
+                            width: '100%'
                         },
                         textInput: {
-                            left:0,
-                            top: 40,
+                            top: 0,
                             backgroundColor: 'white',
                             borderBottomWidth: 0.1,
 
                         },
                         listView: {
-                            
+                            height:40,
+                            marginTop: 40,
                             elevation: 1,
                             backgroundColor: 'white',
                             position: 'absolute',
@@ -207,10 +228,34 @@ export default class Place extends Component<Props, State> {
                     {this.state.text2}
                 </Text>
 
-                {!!this.state.showButton && <Map dlong={parseFloat(this.state.long2)} dlat={parseFloat(this.state.lat2)} olat={parseFloat(this.state.lat)} olong={parseFloat(this.state.long)}/>}
 
 
+                {!!this.state.showButton && <Map dlong={parseFloat(this.state.long2)} dlat={parseFloat(this.state.lat2)} olat={parseFloat(this.state.lat)} olong={parseFloat(this.state.long)} mode={'walking'}/>}
 
+                {/*{!!this.state.showSearch2 && <Text style={{height: 40, fontSize: 32, position:"absolute", bottom: 40}}>*/}
+                {/*    {request.get('https://maps.googleapis.com/maps/api/distancematrix/json').query({*/}
+                {/*        origins: this.state.lat + " " + this.state.long,*/}
+                {/*        destinations: this.state.lat2 + " " + this.state.long2,*/}
+                {/*        key: 'AIzaSyAXB4arZesKpFxvYR8ZhE0zxhMJ5SZjjl8',*/}
+                {/*    })*/}
+                {/*    })}*/}
+                {/*</Text>}*/}
+
+                {/*<NavigationApps*/}
+                {/*    style = {{bottom:0}}*/}
+                {/*    iconSize={50}*/}
+                {/*    row*/}
+                {/*    address={this.state.text2.toString()} // address to navigate by for all apps*/}
+                {/*    waze={{address:''.text2,lat:'',lon:'',action: actions.navigateByAddress}} // specific settings for waze*/}
+                {/*    googleMaps={{address:'',lat:'',lon:'',action: actions.navigateByAddress,travelMode:googleMapsTravelModes.driving}}*/}
+                {/*/>*/}
+
+                {/*<Button*/}
+                {/*    style={{bottom:20, position:'absolute'}}*/}
+                {/*    onPress={() => { this._callShowDirections(parseFloat(this.state.lat), parseFloat(this.state.long), parseFloat(this.state.lat2), parseFloat(this.state.long2)) }}*/}
+                {/*    title="Open map"*/}
+                {/*    color="#841584"*/}
+                {/*/>*/}
 
             </View>
 
@@ -221,16 +266,7 @@ export default class Place extends Component<Props, State> {
 
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-        height: '100%',
-        position: 'absolute'
-    },
-});
+
 
 {/*<StatusBar backgroundColor="#66BB6A" barStyle="light-content" />*/}
 {/*    <Grid>*/}
