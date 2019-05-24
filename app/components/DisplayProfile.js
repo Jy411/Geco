@@ -5,19 +5,29 @@ import { Avatar } from 'react-native-elements';
 class DisplayProfile extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            avatarImage: {name:'tree', type:'font-awesome', color:'#41523c'}
+        }
+    }
+
+
+    changeAvatar() {
+        this.setState({
+            avatarImage: {name:'random', type:'font-awesome', color:'#41523c'}
+        })
     }
 
     render() {
         return (
             <Avatar
+                onPress={() => this.changeAvatar()}
                 rounded
-                size="xlarge"
+                size = "xlarge"
                 overlayContainerStyle={{backgroundColor: '#81A171'}} // background color of avatar
-                icon = {{ name:'tree', type:'font-awesome', color:'#41523c' }}
+                icon = {this.state.avatarImage}
             />
         )
     }
-
 
 }
 

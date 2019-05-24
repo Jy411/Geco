@@ -32,6 +32,7 @@
     "react-native-responsive-screen": "^1.2.2",
 =======
     "react-native-paper": "^2.15.2",
+    "react-native-progress": "^3.6.0",
     "react-native-responsive-screen": "latest",
 <<<<<<< master
 >>>>>>> - Added bottom tab navigation - TODO add icons, readability, navigating to pages
