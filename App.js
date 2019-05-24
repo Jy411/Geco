@@ -1,137 +1,149 @@
-import React, {Component} from 'react';
-import {Platform, StyleSheet, TextInput, View, Text, StatusBar, Image, Button } from 'react-native';
+
+
+import React from 'react';
+import { Text, View, Button } from 'react-native';
+import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Map from "./Map";
 
-import {GooglePlacesAutocomplete} from "react-native-google-places-autocomplete";
-import Place from "./Place";
-
-
-type Props = {};
 type State = {
-    text:string;
-    location:string;
-    lat:string;
-    long:string;
+
+    origin:string;
+    oLat:string;
+    oLong:string;
+    destination:string;
+    dLat:string;
+    dLong:string;
 };
-export default class App extends Component<Props, State> {
+
+class HomeScreen extends React.Component<Props, State> {
+
     constructor(props) {
         super(props);
         this.state = {
-            text: '',
-            location: '',
-            lat: '',
-            long: ''
+            origin: '',
+            oLat: '',
+            oLong: '',
+            destination: '',
+            dLat: '',
+            dLong: '',
         };
-    }
 
+    }
     render() {
         return (
-                <View style={styles.container} key="1">
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <GooglePlacesAutocomplete
+                    placeholder='Enter Location'
+                    minLength={2}
+                    autoFocus={false}
+                    returnKeyType={'default'}
+                    fetchDetails={true}
+                    onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
+                        this.setState({ origin: details.formatted_address, oLat:details.geometry.location.lat, oLong:details.geometry.location.lng })
+                    }}
+                    query={{
+                        // available options: https://developers.google.com/places/web-service/autocomplete
+                        key: 'AIzaSyAXB4arZesKpFxvYR8ZhE0zxhMJ5SZjjl8',
+                        language: 'en', // language of the results
+                    }}
+                    styles={{
+                        container:{
+                            top:0,
+                            width:'100%',
+                            height:80,
+                            position:'absolute'
+                        },
+                        textInputContainer: {
+                            height:44,
+                            backgroundColor: 'rgba(0,0,0,0)',
+                            borderTopWidth: 0,
+                            borderBottomWidth:0,
+                            width:"100%"
+                        },
+                        textInput: {
+                            marginLeft: 0,
+                            marginRight: 0,
+                            height: 38,
+                            color: '#5d5d5d',
+                            fontSize: 16
+                        },
+                        predefinedPlacesDescription: {
+                            color: '#1faadb'
+                        },
+                    }}
+                    currentLocation={false}
+                />
+                <GooglePlacesAutocomplete
+                    placeholder='Enter Location'
+                    minLength={2}
+                    autoFocus={false}
+                    returnKeyType={'default'}
+                    fetchDetails={true}
+                    query={{
+                        // available options: https://developers.google.com/places/web-service/autocomplete
+                        key: 'AIzaSyAXB4arZesKpFxvYR8ZhE0zxhMJ5SZjjl8',
+                        language: 'en', // language of the results
+                    }}
+                    styles={{
+                        container:{
+                            top:44,
+                            width:'100%',
+                            height:80,
+                            position:'absolute'
+                        },
+                        textInputContainer: {
+                            top:40,
+                            backgroundColor: 'rgba(0,0,0,0)',
+                            borderTopWidth: 0,
+                            borderBottomWidth:0,
+                            width:"100%"
+                        },
+                        textInput: {
+                            marginLeft: 0,
+                            marginRight: 0,
+                            height: 38,
+                            color: '#5d5d5d',
+                            fontSize: 16
+                        },
+                        predefinedPlacesDescription: {
+                            color: '#1faadb'
+                        },
+                    }}
+                    currentLocation={false}
+                />
 
-                <Place/>
-                </View>
-
+                <Map mode={"driving"} olong={this.state.oLat} olat={this.state.oLong} dlong={""} dlat={""}/>
+            </View>
         );
     }
-
-
-
 }
 
-const styles = StyleSheet.create({
-    viewPager: {
-        flex: 1
-    },
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    textIntro: {
-        fontFamily: 'SFCompactDisplayBold',
-        fontSize: 30,
-        fontWeight: 'bold',
-        color: '#43A047',
-        alignSelf: 'center',
-    },
-    containerView: {
-        justifyContent: 'center',
-        flex: 1,
-    },
-    colorView: {
-        justifyContent: 'center',
-    },
-    centerIcon: {
-        alignSelf: 'center',
-    },
+class MapScreen extends React.Component {
+    render() {
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Text>Map!</Text>
+            </View>
+        );
+    }
+}
+
+
+class SettingsScreen extends React.Component {
+    render() {
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Text>Settings!</Text>
+            </View>
+        );
+    }
+}
+
+const TabNavigator = createBottomTabNavigator({
+    Home: HomeScreen,
+    Map: MapScreen,
+    Settings: SettingsScreen,
 });
 
-{/*<StatusBar backgroundColor="#66BB6A" barStyle="light-content" />*/}
-{/*    <Grid>*/}
-{/*        <Col size={1}></Col>*/}
-{/*        <Col size={4}>*/}
-{/*            <Row size={1}></Row>*/}
-{/*            <Row size={4}>*/}
-{/*                <View style={styles.containerView}>*/}
-{/*                    <Text style={styles.textIntro}>Welcome to Geco. Take part in making the world a better place.</Text>*/}
-{/*                </View>*/}
-{/*            </Row>*/}
-{/*            <Row size={1}>*/}
-{/*                <Grid>*/}
-{/*                    <Col size={1}></Col>*/}
-{/*                    <Col size={1}>*/}
-{/*                        <View style={styles.colorView}>*/}
-{/*                            <Icon style={styles.centerIcon} color='#43A047' name="circle" size={20}/>*/}
-{/*                        </View>*/}
-{/*                    </Col>*/}
-{/*                    <Col size={1}>*/}
-{/*                        <View style={styles.colorView}>*/}
-{/*                            <Icon style={styles.centerIcon} color="#C8E6C9" name="circle" size={20}/>*/}
-{/*                        </View>*/}
-{/*                    </Col>*/}
-{/*                    <Col size={1}>*/}
-{/*                        <View style={styles.colorView}>*/}
-{/*                            <Icon style={styles.centerIcon} color="#C8E6C9" name="circle" size={20}/>*/}
-{/*                        </View>*/}
-{/*                    </Col>*/}
-{/*                    <Col size={1}></Col>*/}
-{/*                </Grid>*/}
-{/*            </Row>*/}
-{/*        </Col>*/}
-{/*        <Col size={1}></Col>*/}
-{/*    </Grid>*/}
-{/*</View>*/}
-{/*<View style={styles.container} key="2">*/}
-{/*    <Grid>*/}
-{/*        <Col size={1}></Col>*/}
-{/*        <Col size={4}>*/}
-{/*            <Row size={1}></Row>*/}
-{/*            <Row size={4}>*/}
-{/*                <View style={styles.containerView}>*/}
-{/*                    <Text style={styles.textIntro}>Geco helps you by measuring your carbon footprint.</Text>*/}
-{/*                </View>*/}
-{/*            </Row>*/}
-{/*            <Row size={1}>*/}
-{/*                <Grid>*/}
-{/*                    <Col size={1}></Col>*/}
-{/*                    <Col size={1}>*/}
-{/*                        <View style={styles.colorView}>*/}
-{/*                            <Icon style={styles.centerIcon} color='#C8E6C9' name="circle" size={20}/>*/}
-{/*                        </View>*/}
-{/*                    </Col>*/}
-{/*                    <Col size={1}>*/}
-{/*                        <View style={styles.colorView}>*/}
-{/*                            <Icon style={styles.centerIcon} color="#43A047" name="circle" size={20}/>*/}
-{/*                        </View>*/}
-{/*                    </Col>*/}
-{/*                    <Col size={1}>*/}
-{/*                        <View style={styles.colorView}>*/}
-{/*                            <Icon style={styles.centerIcon} color="#C8E6C9" name="circle" size={20}/>*/}
-{/*                        </View>*/}
-{/*                    </Col>*/}
-{/*                    <Col size={1}></Col>*/}
-{/*                </Grid>*/}
-{/*            </Row>*/}
-{/*        </Col>*/}
-{/*        <Col size={1}></Col>*/}
-{/*    </Grid>*/}
+export default createAppContainer(TabNavigator);
