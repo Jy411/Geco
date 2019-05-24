@@ -21,6 +21,7 @@
     "react-native-material-kit": "^0.5.1",
     "react-native-navigation-bar-color": "0.0.9",
     "react-native-paper": "^2.15.2",
+    "react-native-progress": "^3.6.0",
     "react-native-responsive-screen": "latest",
     "react-native-svg": "latest",
     "react-native-vector-icons": "^6.4.2",

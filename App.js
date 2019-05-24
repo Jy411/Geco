@@ -3,6 +3,8 @@ import { StatusBar } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import changeNavigationBarColor from 'react-native-navigation-bar-color';
 import Home from './app/containers/Home';
+
+// Slides for intro slider
 import { slides } from './app/styles/style';
 
 /* Initial screen, this is the first page which loads. On first run, it will display an intro slider.
@@ -20,13 +22,9 @@ export default class App extends Component<Props, State> {
         StatusBar.setBackgroundColor("#388E3C");
     }
 
-    _onDone = () => {
-        this.setState({showRealApp: true});
-    };
+    _onDone = () => {this.setState({showRealApp: true});};
 
-    _onSkip = () => {
-        this.setState({showRealApp: true});
-    };
+    _onSkip = () => {this.setState({showRealApp: true});};
 
     render() {
         if (this.state.showRealApp) {

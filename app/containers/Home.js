@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import {createAppContainer} from "react-navigation";
 import {createMaterialBottomTabNavigator} from "react-navigation-material-bottom-tabs";
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Col, Row, Grid } from "react-native-easy-grid";
-import {heightPercentageToDP as hp, widthPercentageToDP as wp} from "react-native-responsive-screen";
+import { Row, Grid } from "react-native-easy-grid";
 
+import { homeStyle } from "../styles/style";
 
 import Playground from "./Playground";
 import TravelHistory from "./TravelHistory";
 import DisplayProfile from "../components/DisplayProfile";
 import TotalPoints from "../components/TotalPoints";
+import DistanceAchievementsTracker from "../components/DistanceAchievementsTracker";
 
 
 class Home extends Component {
@@ -21,6 +22,8 @@ class Home extends Component {
         };
     }
 
+    // a function and a prop it will receive
+    // states can be used to change prop
     changeUsername(newName) {
         this.setState({username: newName})
     }
@@ -37,12 +40,6 @@ class Home extends Component {
                         <View style={[homeStyle.centerChildren, homeStyle.setViewWidth, homeStyle.colorView]}>
                             <DisplayProfile/>
                             <Text style={homeStyle.avatarText}>{this.state.username}</Text>
-                            {/*<Button*/}
-                            {/*    title="sudo killall"*/}
-                            {/*    type="outline"*/}
-                            {/*    raised*/}
-                            {/*    onPress={this.changeUsername.bind(this, "S8 Sucks")}*/}
-                            {/*/>*/}
                         </View>
                         {/* This view is in a row */}
                     </Row>
@@ -53,10 +50,14 @@ class Home extends Component {
                 <Grid>
                     <Row>
                         <View style={[homeStyle.centerChildren, homeStyle.setViewWidth]}>
+                            {/* This is where the card points component is stored */}
                             <TotalPoints/>
+                            <DistanceAchievementsTracker/>
+                            {/* This is where the card points component is stored */}
                         </View>
                     </Row>
                 </Grid>
+
 
 
             </ScrollView>
@@ -64,28 +65,28 @@ class Home extends Component {
     }
 }
 
-
-const homeStyle = StyleSheet.create({
-    scrollView: {
-        flex: 1,
-    },
-    centerChildren: {
-        alignItems: 'center', // center the children inside the view
-        paddingTop: hp(5),
-    },
-    setViewWidth: {
-        width: wp(100),
-    },
-    colorView: {
-        backgroundColor: 'brown', // set the background color of the view
-    },
-    avatarText: {
-        fontSize: 24,
-        color: 'white',
-    },
-
-
-});
+// Moved to style.js
+// const homeStyle = StyleSheet.create({
+//     scrollView: {
+//         flex: 1,
+//     },
+//     centerChildren: {
+//         alignItems: 'center', // center the children inside the view
+//         paddingTop: hp(5),
+//     },
+//     setViewWidth: {
+//         width: wp(100),
+//     },
+//     colorView: {
+//         backgroundColor: 'brown', // set the background color of the view
+//     },
+//     avatarText: {
+//         fontSize: 24,
+//         color: 'white',
+//     },
+//
+//
+// });
 
 const TabNavigator = createMaterialBottomTabNavigator(
     {
@@ -122,8 +123,6 @@ const TabNavigator = createMaterialBottomTabNavigator(
         shifting: true,
         labeled: true,
         activeColor: '#FFFFFF', // changes label color
-        // inactiveColor: '#e064ee',
-        // barStyle: {backgroundColor: '#81A171'},
     },
 );
 
