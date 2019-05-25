@@ -3,11 +3,11 @@ package com.geco;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.geolocation.GeolocationPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnativecommunity.viewpager.RNCViewPagerPackage;
-import com.thebylito.navigationbarcolor.NavigationBarColorPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -28,11 +28,11 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new GeolocationPackage(),
             new RNGestureHandlerPackage(),
             new MapsPackage(),
             new VectorIconsPackage(),
-            new RNCViewPagerPackage(),
-            new NavigationBarColorPackage()
+            new RNCViewPagerPackage()
       );
     }
 
