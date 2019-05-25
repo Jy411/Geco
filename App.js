@@ -208,12 +208,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         height: 40,
         width:"100%",
-        alignContent: 'space-between',
-        justifyContent: 'space-between'
+        justifyContent: 'space-around'
     },
     button: {
+        position:'absolute',
         backgroundColor: 'green',
-
         width: '30%'
     },
     button2: {
