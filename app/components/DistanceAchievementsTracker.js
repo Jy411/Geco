@@ -6,14 +6,17 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import ProgressBar from 'react-native-progress/Bar';
 import {heightPercentageToDP as hp, widthPercentageToDP as wp} from "react-native-responsive-screen";
 
+import { cardStyles } from "../styles/style"; // styling for card
+
+
+
 class DistanceAchievementsTracker extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             progress: 0,
-            totalDistance: 0,
+            totalDistance: 50,
         };
-
     }
 
     progressUP() {
@@ -23,18 +26,19 @@ class DistanceAchievementsTracker extends React.Component {
     render() {
         return (
             <Card
-                containerStyle={distanceAchievementStyle.cardStyle} // containerStyle is the container itself
-                wrapperStyle={distanceAchievementStyle.centerContainerItems} // wrapperStyle is for the contents of the container
+                containerStyle={cardStyles.cardStyle} // containerStyle is the container itself
+                wrapperStyle={cardStyles.centerContainerItems} // wrapperStyle is for the contents of the container
             >
                 <Grid>
 
-                    <Row size={2}>
+                    <Row size={1}>
                         <View>
                             <ProgressBar width={wp(82)}
                                          height={hp(3)}
-                                         progress={this.state.progress}
+                                         progress={this.state.totalDistance/100}
                                          borderWidth={0}
-                                         borderRadius={4}
+                                         // borderColor={'#b1b1b1'}
+                                         borderRadius={20}
                                          color={'#66CDAA'}
                                          unfilledColor={'#D3D3D3'}
                                          animationType={'spring'}
@@ -46,10 +50,10 @@ class DistanceAchievementsTracker extends React.Component {
 
                     <Row size={1}>
                         <Col size={2}>
-                            <View>
+                            <View style={{alignItems: 'flex-start'}}>
                                 <Text>
-                                    <Text style={{fontSize: 16, fontWeight: 'bold'}}>Little Boi Steps</Text>
-                                    <Text style={{fontSize: 12}}> Progress</Text>
+                                    <Text style={cardStyles.captionTextStyle}>Little Boi Steps</Text>
+                                    <Text style={cardStyles.distanceTrackerCaptionStyle}> Progress</Text>
                                 </Text>
                             </View>
                         </Col>
@@ -57,8 +61,8 @@ class DistanceAchievementsTracker extends React.Component {
                         <Col size={1}>
                             <View style={{alignItems: 'flex-end'}}>
                                 <Text>
-                                    <Text style={{fontWeight: 'bold'}}>48/</Text>
-                                    <Text>100KM</Text>
+                                    <Text style={{fontWeight: 'bold'}}>{this.state.totalDistance}</Text>
+                                    <Text>/100KM</Text>
                                 </Text>
                             </View>
                         </Col>
@@ -70,32 +74,6 @@ class DistanceAchievementsTracker extends React.Component {
     }
 }
 
-const distanceAchievementStyle = StyleSheet.create({
-    cardStyle: {
-        height: hp(13),
-        width: wp(90),
-        borderRadius: 10,
-    },
-    center: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    dividerStyle: {
-        width: wp(8),
-        borderWidth: 1,
-        transform: [{ rotate: '90deg'}]
-    },
-    pointsTextStyle: {
-        fontSize: 24,
-        color: 'black'
-    },
-    centerContainerItems: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
-});
 
 export default DistanceAchievementsTracker;
 

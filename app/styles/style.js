@@ -56,30 +56,48 @@ const slides = [
 ];
 
 // Used in TotalPoints.js for styling the card components
-const totalPointsStyle = StyleSheet.create({
+const cardStyles = StyleSheet.create({
     cardStyle: {
-        height: hp(13),
+        flex: 1,
+        height: hp(18),
         width: wp(90),
-        borderRadius: 10,
+        borderRadius: 20,
     },
-    center: {
+    centerContainerItems: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+
+    },
+    totalPointsHistoryNumberAlignment: {
+        // width: wp(80),
+        // alignContent: 'center', // alignContent overrides parent and applies to all the children
+        // alignSelf: 'center', // alignSelf controls itself
+        alignItems: 'center', // alignItems controls the children
+        justifyContent: 'center',
+        // backgroundColor: 'orange'
+    },
+    prevPointsEarned: {
+        fontSize: 20,
+        fontWeight: '400',
+        color: 'black',
     },
     dividerStyle: {
-        width: wp(8),
+        width: wp(15),
         borderWidth: 1,
         transform: [{ rotate: '90deg'}]
     },
     pointsTextStyle: {
         fontSize: 24,
+        fontWeight: 'bold',
         color: 'black'
     },
-    centerContainerItems: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+    captionTextStyle: {
+        fontSize: 20,
+        fontWeight: 'bold'
+    },
+    distanceTrackerCaptionStyle: {
+        fontSize: 12
     }
 });
 
@@ -90,7 +108,7 @@ const homeStyle = StyleSheet.create({
     },
     centerChildren: {
         alignItems: 'center', // center the children inside the view
-        paddingTop: hp(5),
+        paddingTop: hp(3),
     },
     setViewWidth: {
         width: wp(100),
@@ -100,7 +118,7 @@ const homeStyle = StyleSheet.create({
     },
     avatarText: {
         fontSize: 24,
-        color: 'white',
+        color: 'black',
     },
 
 
@@ -108,6 +126,6 @@ const homeStyle = StyleSheet.create({
 
 export  {
     slides,
-    totalPointsStyle,
+    cardStyles,
     homeStyle
 }
