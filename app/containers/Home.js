@@ -12,6 +12,8 @@ import TravelHistory from "./TravelHistory";
 import DisplayProfile from "../components/DisplayProfile";
 import TotalPoints from "../components/TotalPoints";
 import DistanceAchievementsTracker from "../components/DistanceAchievementsTracker";
+import PointsHistory from "../components/PointsHistory";
+import TravelStats from "../components/TravelStats";
 
 
 class Home extends Component {
@@ -33,26 +35,23 @@ class Home extends Component {
         return (
             <ScrollView style={homeStyle.scrollView}>
 
-                {/* First Row with avatar and avatar label */}
                 <Grid>
                     <Row size={1}>
                         {/* This view is in a row */}
-                        <View style={[homeStyle.centerChildren, homeStyle.setViewWidth, homeStyle.colorView]}>
+                        <View style={[homeStyle.centerChildren, homeStyle.setViewWidth]}>
                             <DisplayProfile/>
                             <Text style={homeStyle.avatarText}>{this.state.username}</Text>
                         </View>
                         {/* This view is in a row */}
                     </Row>
-                </Grid>
 
-
-                {/* Second Row */}
-                <Grid>
                     <Row>
                         <View style={[homeStyle.centerChildren, homeStyle.setViewWidth]}>
                             {/* This is where the card points component is stored */}
                             <TotalPoints/>
                             <DistanceAchievementsTracker/>
+                            <PointsHistory/>
+                            <TravelStats/>
                             {/* This is where the card points component is stored */}
                         </View>
                     </Row>
