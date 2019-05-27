@@ -1,19 +1,44 @@
 import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
+import {View, Text, Button, StatusBar} from 'react-native';
 import Map from '../components/Map';
+import {GooglePlacesAutocomplete} from "react-native-google-places-autocomplete";
+import changeNavigationBarColor from "react-native-navigation-bar-color/src";
 
-export class Playground extends Component {
+type Props = {};
 
+type State = {
+    oLat:string;
+    oLong:string;
+    dLat:string;
+    dLong:string;
+}
+
+
+export class Playground extends Component<Props, State> {
+    constructor(props) {
+        super(props);
+        this.state = {
+            // To determine whether to show the introduction sliders
+            oLat: '',
+            oLong: '',
+            dLat: '',
+            dLong: '',
+        };
+
+    }
     render() {
+
         return (
             <View>
-                <Text>Hi</Text>
-                <Map olong={''} olat={''} dlong={''} dlat={''}/>
+
+                <Map/>
             </View>
-            
-                
+
+
         )
     }
 }
 
 export default Playground;
+
+
