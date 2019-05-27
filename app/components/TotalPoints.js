@@ -6,11 +6,17 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { cardStyles } from "../styles/style"; // styling for card
 
-class TotalPoints extends React.Component {
+type Props = {
+    totalP:number;
+}
+
+
+class TotalPoints extends React.Component<Props> {
+
     constructor(props) {
         super(props);
         this.state = {
-            totalPoints: 30000
+            totalPoints: this.props.totalP
         };
 
     }

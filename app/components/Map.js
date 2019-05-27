@@ -14,7 +14,6 @@ type Props = {
     dlat:number;
 }
 
-
 class Map extends React.Component<Props> {
 
     constructor(props) {

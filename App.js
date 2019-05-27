@@ -10,6 +10,9 @@ import { slides } from './app/styles/style';
 /* Initial screen, this is the first page which loads. On first run, it will display an intro slider.
 *  The actual screen have a BottomNavBar for users to navigate around the different screens.
 *  */
+type State = {
+    showRealApp:boolean;
+};
 
 export default class App extends Component<Props, State> {
     constructor(props) {
