@@ -64,28 +64,6 @@ class Home extends Component {
     }
 }
 
-// Moved to style.js
-// const homeStyle = StyleSheet.create({
-//     scrollView: {
-//         flex: 1,
-//     },
-//     centerChildren: {
-//         alignItems: 'center', // center the children inside the view
-//         paddingTop: hp(5),
-//     },
-//     setViewWidth: {
-//         width: wp(100),
-//     },
-//     colorView: {
-//         backgroundColor: 'brown', // set the background color of the view
-//     },
-//     avatarText: {
-//         fontSize: 24,
-//         color: 'white',
-//     },
-//
-//
-// });
 
 const TabNavigator = createMaterialBottomTabNavigator(
     {
