@@ -9,6 +9,10 @@ import {GooglePlacesAutocomplete} from "react-native-google-places-autocomplete"
 
 
 type State = {
+    type:string;
+    distance:number;
+    duration:number;
+    destination:string;
     origin:string;
     oLat:number;
     oLong:number;
@@ -18,6 +22,7 @@ type State = {
     dExists:boolean;
 }
 
+
 class Map extends React.Component<Props, State> {
 
     constructor(props) {
@@ -26,6 +31,9 @@ class Map extends React.Component<Props, State> {
 
 
         this.state = {
+            distance:0,
+            duration:0,
+            type:'',
             origin:'',
 
             oLat: 0,
@@ -35,7 +43,6 @@ class Map extends React.Component<Props, State> {
             dLat: 0,
 
             dLong: 0,
-
             error:null,
             destination:'',
             oExists: false,
@@ -48,7 +55,9 @@ class Map extends React.Component<Props, State> {
         const origin = {latitude: this.state.oLat, longitude: this.state.oLong};
         const destinations = {latitude: this.state.dLat, longitude: this.state.dLong};
         return (
-                <View>
+                <View style={{width:'100%'}}>
+                    <Text style={{top:40, position:'absolute'}}>{this.state.duration}</Text>
+                    <Text style={{top:80, position:'absolute'}}>{this.state.distance}</Text>
                     <GooglePlacesAutocomplete
                         placeholder='Enter Location'
                         minLength={2}
@@ -57,6 +66,7 @@ class Map extends React.Component<Props, State> {
                         fetchDetails={true}
                         onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
                             this.setState({ origin: details.formatted_address, oLat:details.geometry.location.lat, oLong:details.geometry.location.lng, oExists:true })
+
                         }}
                         query={{
                             // available options: https://developers.google.com/places/web-service/autocomplete
@@ -137,6 +147,7 @@ class Map extends React.Component<Props, State> {
                         latitudeDelta: 1,
                         longitudeDelta: 1
                     }}
+
                              showsCompass={true}
                              mapType={"standard"}
                              showsMyLocationButton={true}
@@ -144,15 +155,20 @@ class Map extends React.Component<Props, State> {
                     >
 
 
+                        {this.state.oExists && <MapMarker coordinate={{latitude:this.state.oLat, longitude:this.state.oLong}} />}
 
-                        {this.state.oExists && <MapMarker coordinate={origin}/>}
-                        {this.state.dExists && <MapMarker coordinate={destinations}/>}
+                        {this.state.oExists && this.state.dExists && <MapMarker coordinate={{latitude:this.state.dLat, longitude:this.state.dLong}}/>}
+
                         {this.state.oExists && this.state.dExists &&
 
                         <MapViewDirections
-                            origin={origin}
-                            destination={destinations}
+                            origin={this.state.origin}
+                            destination={this.state.destination}
                             apikey={'AIzaSyAXB4arZesKpFxvYR8ZhE0zxhMJ5SZjjl8'}
+                            mode={'driving'}
+                            onReady={(result) => {
+                                this.setState({duration:result.duration, distance:result.distance})
+                            }}
                         />}
 
                     </MapView>
@@ -177,7 +193,7 @@ const styles = StyleSheet.create({
 
         right: 0,
 
-        bottom: 0,
+        bottom: 120,
 
         justifyContent: 'flex-end',
 
@@ -195,7 +211,7 @@ const styles = StyleSheet.create({
 
         right: 0,
 
-        bottom: 0,
+        bottom: 120,
         width:'100%',
         height:'100%',
     },
