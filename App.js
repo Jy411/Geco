@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+<<<<<<< HEAD
 <<<<<<< master
 <<<<<<< master
 <<<<<<< master
@@ -8,6 +9,9 @@ import { StyleSheet, View, Text, StatusBar } from 'react-native';
 =======
 import { StatusBar } from 'react-native';
 >>>>>>> - Created 2 new components: DisplayProfile.js (Avatar), TotalPoints.js (Card) - Styling is messy, currently in the TotalPoints.js and Home.js, TODO move to style.js OR keep each styling to each component file - Implemented ScrollView in Home.js - Cleaned up some code (but more needs to be done)
+=======
+import { StatusBar } from 'react-native';
+>>>>>>> jy-geco
 import AppIntroSlider from 'react-native-app-intro-slider';
 import changeNavigationBarColor from 'react-native-navigation-bar-color';
 import Home from './app/containers/Home';
@@ -72,6 +76,7 @@ export default class App extends Component<Props, State> {
 //         fontWeight: 'bold',
 //     },
 // });
+<<<<<<< HEAD
 
 <<<<<<< master
 const styles = StyleSheet.create({
@@ -238,3 +243,42 @@ export default createAppContainer(TabNavigator);
 
 /* ========== Moved these stylesheets to style.js ========== */
 >>>>>>> - Created 2 new components: DisplayProfile.js (Avatar), TotalPoints.js (Card) - Styling is messy, currently in the TotalPoints.js and Home.js, TODO move to style.js OR keep each styling to each component file - Implemented ScrollView in Home.js - Cleaned up some code (but more needs to be done)
+=======
+
+// const slides = [
+//     {
+//         key: 's1',
+//         text: 'Welcome to Geco',
+//         textStyle: styles.sliderText,
+//         image: require('./app/images/HDTree1.png'),
+//         imageStyle: styles.image,
+//         backgroundColor: '#a4df92',
+//     },
+//     {
+//         key: 's2',
+//         text: 'Geco helps measure your impact on the environment',
+//         textStyle: styles.sliderText,
+//         image: require('./app/images/HDTree3.png'),
+//         imageStyle: styles.image,
+//         backgroundColor: '#a4df92',
+//     },
+//     {
+//         key: 's3',
+//         text: 'Each small step brings us closer to our goal',
+//         textStyle: styles.sliderText,
+//         image: require('./app/images/HDTree5.png'),
+//         imageStyle: styles.image,
+//         backgroundColor: '#a4df92',
+//     },
+//     {
+//         key: 's4',
+//         text: 'The best time to plant a tree was 20 years ago. The second best time is now.',
+//         textStyle: styles.sliderText,
+//         image: require('./app/images/earth.png'),
+//         imageStyle: styles.image,
+//         backgroundColor: '#a4df92',
+//     },
+// ];
+
+/* ========== Moved these stylesheets to style.js ========== */
+>>>>>>> jy-geco
