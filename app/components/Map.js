@@ -1,6 +1,6 @@
 import React from "react";
-
-import {AppRegistry, StyleSheet, Dimensions, View, Text, Platform} from "react-native";
+import {ButtonGroup} from 'react-native-elements';
+import {AppRegistry, StyleSheet, Dimensions, View, Text, Platform, Alert} from "react-native";
 
 import MapView from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
@@ -15,6 +15,7 @@ type State = {
     distance:number;
     duration:number;
     destination:string;
+    selectedIndex: number,
     oLat:number;
     oLong:number;
     dLat:number;
@@ -35,21 +36,18 @@ class Map extends React.Component<Props, State> {
             lang:0,
             distance:0,
             duration:0,
-            type:'',
-
-
+            type:'driving',
+            selectedIndex: 0,
             oLat: 0,
-
             oLong: 0,
-
             dLat: 0,
-
             dLong: 0,
             error:null,
             destination:'',
 
             dExists: false,
         };
+        this.updateIndex = this.updateIndex.bind(this)
 
     }
     componentDidMount() {
@@ -65,15 +63,29 @@ class Map extends React.Component<Props, State> {
             { enableHighAccuracy: false, timeout: 30000 },
         );
     }
+    updateIndex (selectedIndex) {
+        this.setState({selectedIndex});
+        Alert.prompt('Selected', selectedIndex.toString());
+    }
 
     render() {
         const origin = {latitude: this.state.lat, longitude: this.state.long};
         const destinations = {latitude: this.state.dLat, longitude: this.state.dLong};
-        return (
-                <View style={{width:'100%'}}>
+        const buttons = ['Car', 'Walking', 'Transit'];
+        const { selectedIndex } = this.state.selectedIndex;
 
-                    <Text style={{bottom:40, position:'absolute'}}>{this.state.duration}</Text>
-                    <Text style={{bottom:80, position:'absolute'}}>{this.state.distance}</Text>
+        return (
+                <View style={{left: 0, right: 0, bottom: 0}}>
+
+                    <Text style={{top:80, position:'absolute'}}>{this.state.duration}</Text>
+                    <Text style={{top:100, position:'absolute'}}>{this.state.distance}</Text>
+                    {/*<Text style={{top:120, position:'absolute'}}>{this.state.distance * 3 * this.state.duration}</Text>*/}
+                    {/*<Text style={{top:140, position:'absolute'}}>{this.state.distance * 10 * this.state.duration}</Text>*/}
+                    <ButtonGroup
+                        onPress={this.updateIndex}
+                        selectedIndex={selectedIndex}
+                        buttons={buttons}
+                        containerStyle={{ left:0, right:20,top:120, height: 40, width:"100%",position:'absolute'}} />
                     <GooglePlacesAutocomplete
                         placeholder='Enter Location'
                         minLength={2}
@@ -173,21 +185,49 @@ class Map extends React.Component<Props, State> {
                         <MapMarker coordinate={{latitude:this.state.lat, longitude:this.state.long}} />
 
 
-                        {this.state.dExists && <MapMarker coordinate={{latitude:this.state.dLat, longitude:this.state.dLong}}/>}
+                        {this.state.dExists === true && <MapMarker coordinate={destinations}/>}
 
 
 
-                        <MapViewDirections
+                        {this.state.selectedIndex === 0 && <MapViewDirections
                             origin={origin}
                             destination={this.state.destination}
                             apikey={'AIzaSyAXB4arZesKpFxvYR8ZhE0zxhMJ5SZjjl8'}
                             mode={'driving'}
+                            strokeWidth={3}
+                            strokeColor="blue"
                             onReady={(result) => {
-                                this.setState({duration:result.duration, distance:result.distance})
+                                this.setState({duration:result.duration/60, distance:result.distance})
                             }}
-                        />
 
+                        />}
+
+
+                        {this.state.selectedIndex === 1 &&  <MapViewDirections
+                            origin={origin}
+                            destination={this.state.destination}
+                            apikey={'AIzaSyAXB4arZesKpFxvYR8ZhE0zxhMJ5SZjjl8'}
+                            mode={'walking'}
+                            onReady={(result) => {
+                                this.setState({duration:result.duration/60, distance:result.distance})
+                            }}
+                            strokeWidth={3}
+                            strokeColor="blue"
+                        />}
+                        {this.state.selectedIndex === 2 && <MapViewDirections
+                            origin={origin}
+                            destination={this.state.destination}
+                            apikey={'AIzaSyAXB4arZesKpFxvYR8ZhE0zxhMJ5SZjjl8'}
+                            mode={'transit'}
+                            strokeWidth={3}
+                            strokeColor="blue"
+                            onReady={(result) => {
+                                this.setState({duration:result.duration/60, distance:result.distance})
+                            }}
+                        />}
                     </MapView>
+
+
                 </View>
 
         );
