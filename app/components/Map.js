@@ -1,27 +1,43 @@
 import React from "react";
 import {ButtonGroup} from 'react-native-elements';
-import {AppRegistry, StyleSheet, Dimensions, View, Text, Platform, Alert} from "react-native";
+import {AppRegistry, StyleSheet, Dimensions, View, Text, Platform, Alert, Button} from "react-native";
 
 import MapView from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 import MapMarker from "react-native-maps/lib/components/MapMarker";
 import {GooglePlacesAutocomplete} from "react-native-google-places-autocomplete";
 
+type Props = {
+    totalP:number;
+};
 
 type State = {
+    region:{
+        latitude:number,
+        longitude:number,
+        latitudeDelta: number,
+        longitudeDelta: number,
+    };
+    showList:boolean,
     lat:number,
     long:number,
     type:string;
+    color:string;
+    color2:string;
     distance:number;
     duration:number;
     destination:string;
     selectedIndex: number,
+    reward:number,
+    earned:number,
     oLat:number;
     oLong:number;
     dLat:number;
     dLong:number;
     dExists:boolean;
-}
+    startShow:boolean;
+
+};
 
 
 class Map extends React.Component<Props, State> {
@@ -32,11 +48,16 @@ class Map extends React.Component<Props, State> {
 
 
         this.state = {
+            reward:0,
+            earned:0,
+            color:'lightgreen',
+            color2:'pink',
+            showList:true,
             lat:0,
             lang:0,
             distance:0,
             duration:0,
-            type:'driving',
+            type:'not rewarded',
             selectedIndex: 0,
             oLat: 0,
             oLong: 0,
@@ -44,10 +65,14 @@ class Map extends React.Component<Props, State> {
             dLong: 0,
             error:null,
             destination:'',
-
+            startShow:true,
             dExists: false,
+            showGroup:true,
         };
-        this.updateIndex = this.updateIndex.bind(this)
+        this.updateIndex = this.updateIndex.bind(this);
+        this.startJourney = this.startJourney.bind(this);
+        this.endJourney = this.endJourney.bind(this);
+
 
     }
     componentDidMount() {
@@ -60,41 +85,105 @@ class Map extends React.Component<Props, State> {
                 });
             },
             (error) => this.setState({ error: error.message }),
-            { enableHighAccuracy: false, timeout: 30000 },
+            { enableHighAccuracy: true, timeout: 3000 },
         );
     }
     updateIndex (selectedIndex) {
         this.setState({selectedIndex});
-        Alert.prompt('Selected', selectedIndex.toString());
+        // Alert.alert(selectedIndex.toString());
+    }
+    getFare(duration:number, distance:number, selectedIndex) {
+
+        if (selectedIndex=== 0){
+            if (distance >= 1) {
+                return duration + distance * 0.5 ;
+            }
+            else
+                return 0;
+
+        }
+        else if (selectedIndex === 1) {
+            if (distance >= 1) {
+                return (duration) + (distance*2) ;
+            }
+            else
+                return 0;
+        }
+        else{
+            if (distance >= 1) {
+                return (duration) + (distance*1.2);
+            }
+            else
+                return 0;
+        }
+
+    }
+    startJourney (){
+        navigator.geolocation.watchPosition(
+            (position) => {
+                this.setState({
+                    lat: position.coords.latitude,
+                    long: position.coords.longitude,
+                    error: null,
+                });
+            },
+            (error) => this.setState({ error: error.message }),
+            { enableHighAccuracy: true, timeout: 300 },
+        );
+        this.setState({color:'blue', reward:Math.round(this.getFare(this.state.duration,this.state.distance, this.state.selectedIndex) ), startShow:false});
+    }
+    endJourney (){
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                this.setState({
+                    lat: position.coords.latitude,
+                    long: position.coords.longitude,
+                    error: null,
+                });
+            },
+            (error) => this.setState({ error: error.message }),
+            { enableHighAccuracy: true, timeout: 3000 },
+        );
+
+        if (this.state.lat.toFixed(2) === this.state.dLat.toFixed(2) && this.state.long.toFixed(2) === this.state.dLong.toFixed(2)){
+            this.setState({type:'rewarded', color2:'blue', dExists:false, startShow:true})
+            Alert.alert('Congratulations!', 'You have earned ' + this.state.reward + ' points');
+        }
+        else{
+            this.setState({type:'not rewarded', color2:'red'})
+        }
     }
 
     render() {
         const origin = {latitude: this.state.lat, longitude: this.state.long};
         const destinations = {latitude: this.state.dLat, longitude: this.state.dLong};
-        const buttons = ['Car', 'Walking', 'Transit'];
+        const buttons = ['Carpooling', 'Walking', 'Bicycling'];
         const { selectedIndex } = this.state.selectedIndex;
+        var n = new Date(0,0);
+        n.setSeconds(+this.state.duration * 60 * 60);
 
         return (
-                <View style={{left: 0, right: 0, bottom: 0}}>
+                <View style={{left: 0, right: 0, bottom: 0, height:'100%'}}>
 
-                    <Text style={{top:80, position:'absolute'}}>{this.state.duration}</Text>
-                    <Text style={{top:100, position:'absolute'}}>{this.state.distance}</Text>
-                    {/*<Text style={{top:120, position:'absolute'}}>{this.state.distance * 3 * this.state.duration}</Text>*/}
+                    <Text style={{top:80, position:'absolute'}}>{" Trip duration: " + n.toTimeString().slice(0, 8) + "\t Points earned: " + Math.round(this.getFare(this.state.duration,this.state.distance, this.state.selectedIndex) ) + "\n Distance: " + this.state.distance + " km " + "\t Reward: " + this.state.reward }</Text>
+                    {/*<Text style={{top:100, position:'absolute'}}>{this.state.distance}</Text>*/}
+                    {/*<Text style={{top:60, position:'absolute'}}>{"curLat:" +this.state.lat + " \t curLong: " + this.state.long + "\n dLat: "+this.state.dLat + ' \t dLong: ' + this.state.dLong}</Text>*/}
                     {/*<Text style={{top:140, position:'absolute'}}>{this.state.distance * 10 * this.state.duration}</Text>*/}
-                    <ButtonGroup
+                    {this.state.startShow && <ButtonGroup
                         onPress={this.updateIndex}
                         selectedIndex={selectedIndex}
                         buttons={buttons}
-                        containerStyle={{ left:0, right:20,top:120, height: 40, width:"100%",position:'absolute'}} />
+                        containerStyle={{ left:0, right:20,top:120, height: 40, width:"100%",position:'absolute'}} />}
+
                     <GooglePlacesAutocomplete
                         placeholder='Enter Location'
                         minLength={2}
                         autoFocus={false}
+                        listViewDisplayed={this.state.showList}
                         returnKeyType={'default'}
                         fetchDetails={true}
                         onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-                            this.setState({destination: details.formatted_address, dLat:details.geometry.location.lat, oLong:details.geometry.location.lng, dExists:true })
-
+                            this.setState({destination: details.formatted_address, dLat:details.geometry.location.lat, dLong:details.geometry.location.lng, dExists:true, showList:false })
                         }}
                         query={{
                             // available options: https://developers.google.com/places/web-service/autocomplete
@@ -174,7 +263,9 @@ class Map extends React.Component<Props, State> {
                         longitude: this.state.long,
                         latitudeDelta: 0.0922,
                         longitudeDelta: 0.0421,
+
                     }}
+
                              zoomEnabled={true}
                              showsCompass={true}
                              mapType={"standard"}
@@ -182,11 +273,10 @@ class Map extends React.Component<Props, State> {
                              showsPointsOfInterest={true}
                     >
 
-                        <MapMarker coordinate={{latitude:this.state.lat, longitude:this.state.long}} />
+                        <MapMarker title={'You are here!'} coordinate={{latitude:this.state.lat, longitude:this.state.long}} />
 
 
-                        {this.state.dExists === true && <MapMarker coordinate={destinations}/>}
-
+                        {this.state.dExists === true && <MapMarker title={'Destination'} coordinate={destinations}/>}
 
 
                         {this.state.selectedIndex === 0 && <MapViewDirections
@@ -214,11 +304,12 @@ class Map extends React.Component<Props, State> {
                             strokeWidth={3}
                             strokeColor="blue"
                         />}
+
                         {this.state.selectedIndex === 2 && <MapViewDirections
                             origin={origin}
                             destination={this.state.destination}
                             apikey={'AIzaSyAXB4arZesKpFxvYR8ZhE0zxhMJ5SZjjl8'}
-                            mode={'transit'}
+                            mode={'walking'}
                             strokeWidth={3}
                             strokeColor="blue"
                             onReady={(result) => {
@@ -227,7 +318,10 @@ class Map extends React.Component<Props, State> {
                         />}
                     </MapView>
 
-
+                    {this.state.dExists && <View style={{bottom: 40,left:80, right: 80, position:'absolute', flex:1, flexDirection:'row', alignContent:'space-between', width:'100%'}}>
+                        {this.state.startShow && <Button title={'Start journey'} onPress={this.startJourney} color={this.state.color}>Press</Button>}
+                        <Button title={'End journey'} onPress={this.endJourney} color={this.state.color2}>Press</Button>
+                    </View>}
                 </View>
 
         );

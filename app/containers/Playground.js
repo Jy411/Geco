@@ -11,6 +11,7 @@ type State = {
     oLong:string;
     dLat:string;
     dLong:string;
+    totalP:number;
 }
 
 
@@ -19,6 +20,7 @@ export class Playground extends Component<Props, State> {
         super(props);
         this.state = {
             // To determine whether to show the introduction sliders
+            totalP:0,
             oLat: '',
             oLong: '',
             dLat: '',
@@ -31,8 +33,7 @@ export class Playground extends Component<Props, State> {
 
         return (
             <View>
-
-                <Map/>
+                <Map totalP={this.state.totalP}/>
             </View>
 
 
