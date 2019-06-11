@@ -1,6 +1,6 @@
 import React from "react";
-import {ButtonGroup} from 'react-native-elements';
-import {AppRegistry, StyleSheet, Dimensions, View, Text, Platform, Alert, Button} from "react-native";
+import {ButtonGroup, Button, Badge} from 'react-native-elements';
+import {AppRegistry, StyleSheet, Dimensions, View, Text, Platform, Alert } from "react-native";
 
 import MapView from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
@@ -165,15 +165,16 @@ class Map extends React.Component<Props, State> {
         return (
                 <View style={{left: 0, right: 0, bottom: 0, height:'100%'}}>
 
-                    <Text style={{top:80, position:'absolute'}}>{" Trip duration: " + n.toTimeString().slice(0, 8) + "\t Points earned: " + Math.round(this.getFare(this.state.duration,this.state.distance, this.state.selectedIndex) ) + "\n Distance: " + this.state.distance + " km " + "\t Reward: " + this.state.reward }</Text>
+                    {/*<Text style={{top:80, position:'absolute'}}>{" Trip duration: " + n.toTimeString().slice(0, 8) + "\t Points earned: " + Math.round(this.getFare(this.state.duration,this.state.distance, this.state.selectedIndex) ) + "\n Distance: " + this.state.distance + " km " + "\t Reward: " + this.state.reward }</Text>*/}
                     {/*<Text style={{top:100, position:'absolute'}}>{this.state.distance}</Text>*/}
                     {/*<Text style={{top:60, position:'absolute'}}>{"curLat:" +this.state.lat + " \t curLong: " + this.state.long + "\n dLat: "+this.state.dLat + ' \t dLong: ' + this.state.dLong}</Text>*/}
                     {/*<Text style={{top:140, position:'absolute'}}>{this.state.distance * 10 * this.state.duration}</Text>*/}
+
                     {this.state.startShow && <ButtonGroup
                         onPress={this.updateIndex}
                         selectedIndex={selectedIndex}
                         buttons={buttons}
-                        containerStyle={{ left:0, right:20,top:120, height: 40, width:"100%",position:'absolute'}} />}
+                        containerStyle={{ left:0, right:20,top:120, height: 40, width:"100%",position:'absolute'}}  />}
 
                     <GooglePlacesAutocomplete
                         placeholder='Enter Location'
@@ -279,7 +280,7 @@ class Map extends React.Component<Props, State> {
                         {this.state.dExists === true && <MapMarker title={'Destination'} coordinate={destinations}/>}
 
 
-                        {this.state.selectedIndex === 0 && <MapViewDirections
+                        {this.state.dExists && this.state.selectedIndex === 0 && <MapViewDirections
                             origin={origin}
                             destination={this.state.destination}
                             apikey={'AIzaSyAXB4arZesKpFxvYR8ZhE0zxhMJ5SZjjl8'}
@@ -293,7 +294,7 @@ class Map extends React.Component<Props, State> {
                         />}
 
 
-                        {this.state.selectedIndex === 1 &&  <MapViewDirections
+                        {this.state.dExists && this.state.selectedIndex === 1 &&  <MapViewDirections
                             origin={origin}
                             destination={this.state.destination}
                             apikey={'AIzaSyAXB4arZesKpFxvYR8ZhE0zxhMJ5SZjjl8'}
@@ -305,7 +306,7 @@ class Map extends React.Component<Props, State> {
                             strokeColor="blue"
                         />}
 
-                        {this.state.selectedIndex === 2 && <MapViewDirections
+                        {this.state.dExists && this.state.selectedIndex === 2 && <MapViewDirections
                             origin={origin}
                             destination={this.state.destination}
                             apikey={'AIzaSyAXB4arZesKpFxvYR8ZhE0zxhMJ5SZjjl8'}
@@ -317,10 +318,15 @@ class Map extends React.Component<Props, State> {
                             }}
                         />}
                     </MapView>
-
-                    {this.state.dExists && <View style={{bottom: 40,left:80, right: 80, position:'absolute', flex:1, flexDirection:'row', alignContent:'space-between', width:'100%'}}>
-                        {this.state.startShow && <Button title={'Start journey'} onPress={this.startJourney} color={this.state.color}>Press</Button>}
-                        <Button title={'End journey'} onPress={this.endJourney} color={this.state.color2}>Press</Button>
+                    {this.state.dExists && <View style={{top: 50, left:10, position:'absolute', flex:1, flexDirection:'row', alignContent:'center', justifyContent:'center', width:'100%'}}>
+                        <Badge value={this.state.distance.toFixed(2) + ' \n km'} status="primary" containerStyle={{position:'absolute', left:0}} badgeStyle={{height:70,width:90}} textStyle={{fontSize:20, alignContent: 'center'}} />
+                        <Badge value={n.toTimeString().slice(0, 8) + ' \n ETA'} status="primary" containerStyle={{position:'absolute', left:100}} badgeStyle={{height:70}} textStyle={{fontSize:20, alignContent: 'center'}} />
+                        <Badge value={Math.round(this.getFare(this.state.duration,this.state.distance, this.state.selectedIndex)) + ' \n points'} status="primary" containerStyle={{position:'absolute', left:210}} badgeStyle={{height:70, width:90}} textStyle={{fontSize:20, alignContent: 'center'}} />
+                        <Badge value={this.state.reward + ' \n points'} status="primary" containerStyle={{position:'absolute', left:310}} badgeStyle={{height:70, width:90}} textStyle={{fontSize:20, alignContent: 'center'}} />
+                    </View>}
+                    {this.state.dExists && <View style={{bottom: 180, right: 0, position:'absolute', flex:1, flexDirection:'column', alignContent:'flex-end', justifyContent:'flex-end', width:80}}>
+                        {this.state.startShow && <Button title={'Start'} onPress={this.startJourney} color={this.state.color} containerStyle={{marginRight:20, color:this.state.color}} >Press</Button>}
+                        {!this.state.startShow && <Button title={'End'} onPress={this.endJourney} color={this.state.color2} containerStyle={{marginRight:20, color:this.state.color2}} >Press</Button>}
                     </View>}
                 </View>
 
