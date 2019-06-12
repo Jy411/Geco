@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component }from "react";
 import { View, Text} from "react-native";
 import { Card, Divider } from 'react-native-elements';
 import { Col, Grid } from "react-native-easy-grid";
@@ -6,20 +6,28 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { cardStyles } from "../styles/style"; // styling for card
 
-type Props = {
-    totalP:number;
-}
-
-
-class TotalPoints extends React.Component<Props> {
-
+export default class TotalPoints extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            totalPoints: this.props.totalP
+            totalPoints: props.totalPoints,
         };
 
     }
+    componentWillMount() {
+        console.log('Before Mount: ' + this.state.totalPoints)
+    };
+
+    componentWillReceiveProps(nextProps){
+        console.log('Received Props.');
+        this.setState({
+            totalPoints: nextProps.totalPoints,
+        });
+    };
+
+    componentDidMount(){
+        console.log('After Mount' + (this.state.totalPoints+400))
+    };
 
     render() {
         return (
@@ -31,7 +39,7 @@ class TotalPoints extends React.Component<Props> {
                     {/*First Column*/}
                     <Col size={1}>
                         <View style={cardStyles.centerContainerItems}>
-                            <Icon size={36} name="trophy" color={"#008e66"}/>
+                            <Icon size={50} name="trophy" color={"#2CC55E"}/>
                         </View>
                     </Col>
 
@@ -48,7 +56,7 @@ class TotalPoints extends React.Component<Props> {
                                 {this.state.totalPoints}
                                 {/*Change the state.totalPoints to change the total points of the card*/}
                             </Text>
-                            <Text style={{fontSize: 18}}>Total Points</Text>
+                            <Text style={{fontSize: 20}}>Total Points</Text>
                         </View>
                     </Col>
 
@@ -56,37 +64,8 @@ class TotalPoints extends React.Component<Props> {
             </Card>
         );
     }
+
+
 }
 
-
-// Moved to style.js
-// const totalPointsStyle = StyleSheet.create({
-//     cardStyle: {
-//         height: hp(10),
-//         width: wp(90),
-//         borderRadius: 10,
-//     },
-//     center: {
-//         flex: 1,
-//         justifyContent: 'center',
-//         alignItems: 'center'
-//     },
-//     dividerStyle: {
-//         width: wp(8),
-//         borderWidth: 1,
-//         transform: [{ rotate: '90deg'}]
-//     },
-//     pointsTextStyle: {
-//         fontSize: 24,
-//         color: 'black'
-//     },
-//     centerContainerItems: {
-//         flex: 1,
-//         justifyContent: 'center',
-//         alignItems: 'center'
-//     }
-// });
-// Moved to style.js
-
-export default TotalPoints;
 

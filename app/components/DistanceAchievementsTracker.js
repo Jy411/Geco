@@ -39,7 +39,7 @@ class DistanceAchievementsTracker extends React.Component {
                                          borderWidth={0}
                                          // borderColor={'#b1b1b1'}
                                          borderRadius={20}
-                                         color={'#66CDAA'}
+                                         color={'#2CC55E'}
                                          unfilledColor={'#D3D3D3'}
                                          animationType={'spring'}
                                          animated

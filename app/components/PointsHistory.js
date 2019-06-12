@@ -31,7 +31,7 @@ class PointsHistory extends React.Component {
                     <Col size={1}>
                         <View style={cardStyles.centerContainerItems}>
                             <Icon name='history'
-                                  color='green'
+                                  color='#2CC55E'
                                   size={48}
                             />
                         </View>
@@ -50,7 +50,7 @@ class PointsHistory extends React.Component {
                     <Col size={1}>
                         <View style={cardStyles.centerContainerItems}>
                             <Icon name='info-circle'
-                                  color='green'
+                                  color='#2CC55E'
                                   size={40}
                                   />
                         </View>

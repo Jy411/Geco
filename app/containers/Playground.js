@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import {View, Text, Button, StatusBar} from 'react-native';
 import Map from '../components/Map';
-import {GooglePlacesAutocomplete} from "react-native-google-places-autocomplete";
-import changeNavigationBarColor from "react-native-navigation-bar-color/src";
 
 type Props = {};
 
@@ -18,7 +16,6 @@ export class Playground extends Component<Props, State> {
     constructor(props) {
         super(props);
         this.state = {
-            // To determine whether to show the introduction sliders
             oLat: '',
             oLong: '',
             dLat: '',
@@ -30,7 +27,6 @@ export class Playground extends Component<Props, State> {
 
         return (
             <View>
-
                 <Map/>
             </View>
 

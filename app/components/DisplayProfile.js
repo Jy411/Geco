@@ -1,7 +1,6 @@
 import React from "react";
 import { Avatar } from 'react-native-elements';
 
-
 class DisplayProfile extends React.Component {
     constructor(props) {
         super(props);
@@ -23,7 +22,7 @@ class DisplayProfile extends React.Component {
                 onPress={() => this.changeAvatar()}
                 rounded
                 size = "xlarge"
-                overlayContainerStyle={{backgroundColor: '#81A171'}} // background color of avatar
+                overlayContainerStyle={{backgroundColor: '#afa99b'}} // background color of avatar
                 icon = {this.state.avatarImage}
             />
         )

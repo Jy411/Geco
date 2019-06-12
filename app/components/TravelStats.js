@@ -1,11 +1,12 @@
 import React from "react";
-import { View, Text} from "react-native";
+import { View, Text, Image} from "react-native";
 import { Card, Divider } from 'react-native-elements';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import { cardStyles } from "../styles/style";
 import {heightPercentageToDP as hp, widthPercentageToDP as wp} from "react-native-responsive-screen";
+
 
 class TravelStats extends React.Component {
     constructor(props) {
@@ -27,22 +28,22 @@ class TravelStats extends React.Component {
 
                 <Grid marginBottom={hp(3)}>
                     <Col size={1}>
-                        <View style={{paddingLeft: wp(3)}}>
+                        <View style={cardStyles.travelStatsCard}>
                             <Icon name='walking'
-                                  color='green'
+                                  color='#2CC55E'
                                   size={24}
                             />
                         </View>
                     </Col>
 
                     <Col size={3}>
-                        <View>
+                        <View style={{justifyContent: 'center'}}>
                             <Text style={{fontSize: 20, fontWeight: '400'}}>Walking</Text>
                         </View>
                     </Col>
 
                     <Col size={1}>
-                        <View>
+                        <View style={cardStyles.travelStatsCard}>
                             <Text>
                                 <Text style={{fontSize: 20, fontWeight: '200'}}>{this.state.walkDist}</Text>
                                 <Text style={{fontSize: 15, fontWeight: '200'}}> KM</Text>
@@ -51,26 +52,24 @@ class TravelStats extends React.Component {
                     </Col>
                 </Grid>
 
-                {/*<View style={{backgroundColor: 'black', width: wp(80), height: 1}}/>*/}
-
                 <Grid marginBottom={hp(3)}>
                     <Col size={1}>
-                        <View style={{paddingLeft: wp(2)}}>
-                            <Icon name='car-side'
-                                  color='green'
+                        <View style={cardStyles.travelStatsCard}>
+                            <Icon name='car'
+                                  color='#2CC55E'
                                   size={24}
                             />
                         </View>
                     </Col>
 
                     <Col size={3}>
-                        <View>
+                        <View style={{justifyContent: 'center'}}>
                             <Text style={{fontSize: 20, fontWeight: '400'}}>Driving</Text>
                         </View>
                     </Col>
 
                     <Col size={1}>
-                        <View>
+                        <View style={cardStyles.travelStatsCard}>
                             <Text>
                                 <Text style={{fontSize: 20, fontWeight: '200'}}>{this.state.driveDist}</Text>
                                 <Text style={{fontSize: 15, fontWeight: '200'}}> KM</Text>
@@ -83,22 +82,22 @@ class TravelStats extends React.Component {
 
                 <Grid marginBottom={hp(3)}>
                     <Col size={1}>
-                        <View style={{paddingLeft: wp(3)}}>
+                        <View style={cardStyles.travelStatsCard}>
                             <Icon name='train'
-                                  color='green'
+                                  color='#2CC55E'
                                   size={24}
                             />
                         </View>
                     </Col>
 
                     <Col size={3}>
-                        <View>
+                        <View style={{justifyContent: 'center'}}>
                             <Text style={{fontSize: 20, fontWeight: '400'}}>Public Transit</Text>
                         </View>
                     </Col>
 
                     <Col size={1}>
-                        <View>
+                        <View style={cardStyles.travelStatsCard}>
                             <Text>
                                 <Text style={{fontSize: 20, fontWeight: '200'}}>{this.state.publicTransportDist}</Text>
                                 <Text style={{fontSize: 15, fontWeight: '200'}}> KM</Text>
@@ -113,34 +112,6 @@ class TravelStats extends React.Component {
 }
 
 
-// Moved to style.js
-// const totalPointsStyle = StyleSheet.create({
-//     cardStyle: {
-//         height: hp(10),
-//         width: wp(90),
-//         borderRadius: 10,
-//     },
-//     center: {
-//         flex: 1,
-//         justifyContent: 'center',
-//         alignItems: 'center'
-//     },
-//     dividerStyle: {
-//         width: wp(8),
-//         borderWidth: 1,
-//         transform: [{ rotate: '90deg'}]
-//     },
-//     pointsTextStyle: {
-//         fontSize: 24,
-//         color: 'black'
-//     },
-//     centerContainerItems: {
-//         flex: 1,
-//         justifyContent: 'center',
-//         alignItems: 'center'
-//     }
-// });
-// Moved to style.js
 
 export default TravelStats;
 
