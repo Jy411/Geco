@@ -8,9 +8,11 @@ import {heightPercentageToDP as hp, widthPercentageToDP as wp} from "react-nativ
 
 import { cardStyles } from "../styles/style"; // styling for card
 
+type Props = {
+    totalDis:number;
+};
 
-
-class DistanceAchievementsTracker extends React.Component {
+class DistanceAchievementsTracker extends React.Component <Props>{
     constructor(props) {
         super(props);
         this.state = {
@@ -35,7 +37,7 @@ class DistanceAchievementsTracker extends React.Component {
                         <View>
                             <ProgressBar width={wp(82)}
                                          height={hp(3)}
-                                         progress={this.state.totalDistance/100}
+                                         progress={this.props.totalDis/100}
                                          borderWidth={0}
                                          // borderColor={'#b1b1b1'}
                                          borderRadius={20}
@@ -61,7 +63,7 @@ class DistanceAchievementsTracker extends React.Component {
                         <Col size={1}>
                             <View style={{alignItems: 'flex-end'}}>
                                 <Text>
-                                    <Text style={{fontWeight: 'bold'}}>{this.state.totalDistance}</Text>
+                                    <Text style={{fontWeight: 'bold'}}>{this.props.totalDis}</Text>
                                     <Text>/100KM</Text>
                                 </Text>
                             </View>

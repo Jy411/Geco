@@ -7,7 +7,17 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { cardStyles } from "../styles/style";
 import {heightPercentageToDP as hp, widthPercentageToDP as wp} from "react-native-responsive-screen";
 
-class TravelStats extends React.Component {
+
+type Props ={
+    walkD:number;
+};
+
+type State ={
+
+};
+
+
+class TravelStats extends React.Component <Props,State> {
     constructor(props) {
         super(props);
         this.state = {
@@ -44,7 +54,7 @@ class TravelStats extends React.Component {
                     <Col size={1}>
                         <View>
                             <Text>
-                                <Text style={{fontSize: 20, fontWeight: '200'}}>{this.state.walkDist}</Text>
+                                <Text style={{fontSize: 20, fontWeight: '200'}}>{this.props.walkD}</Text>
                                 <Text style={{fontSize: 15, fontWeight: '200'}}> KM</Text>
                             </Text>
                         </View>

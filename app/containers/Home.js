@@ -20,12 +20,29 @@ import {Button} from "react-native-elements";
 
 const db = SQLite.openDatabase({name:'geco.db', createFromLocation: '~/geco.db', location: 'Library' });
 
-class Home extends Component {
+type Props = {
+    userId:number;
+};
+
+type State = {
+    id:number;
+    username:string;
+    name:string;
+    totalPoint:number;
+    totalDistance:number;
+    walkD:number;
+};
+
+class Home extends Component <Props,State>{
     constructor(props) {
         super(props);
         this.state = {
+            id:1,
             username: 'Guy Who Hates Straws',
             name: 'a ' ,
+            totalPoint: 0,
+            totalDistance:0,
+            walkD:0,
         };
 
 
@@ -36,18 +53,36 @@ class Home extends Component {
     changeUsername(newName) {
         this.setState({username: newName})
     }
+    componentWillReceiveProps(nextProps: Readonly<Props>, nextContext: any): void {
+        this.setState({id:this.props.userId});
+
+    }
+
     componentDidMount(): void {
         db.transaction((tx) => {
-            tx.executeSql('SELECT * FROM user WHERE uid=?', [1], (tx, results)=>{
+            tx.executeSql('SELECT * FROM user WHERE uid=?', [this.state.id], (tx, results)=>{
                 var len = results.rows.length;
                 if (len > 0) {
                     var row = results.rows.item(0);
-                    this.setState({name:row.name + ' ' + row.surname});
-                    Alert.alert('a', 'did')
+                    this.setState({name:row.name + ' ' + row.surname, totalPoint:row.points, totalDistance:row.distance});
                 }
                 else
                     Alert.alert('a', 'not')
             });
+        });
+        db.transaction((tx) => {
+            tx.executeSql('SELECT SUM(distance) as sum FROM trips WHERE uid=?', [1], (tx, results)=>{
+                var len = results.rows.length;
+                if (len > 0) {
+                    var row = results.rows.item(0);
+                    this.setState({walkD:row.sum});
+                }
+                else
+                    Alert.alert('a', 'not');
+            }, error => {
+                Alert.alert('a', error)
+            });
+
         });
     }
 
@@ -69,10 +104,10 @@ class Home extends Component {
                     <Row>
                         <View style={[homeStyle.centerChildren, homeStyle.setViewWidth]}>
                             {/* This is where the card points component is stored */}
-                            <TotalPoints/>
-                            <DistanceAchievementsTracker/>
+                            <TotalPoints totalP={this.state.totalPoint}/>
+                            <DistanceAchievementsTracker totalDis={this.state.totalDistance}/>
                             <PointsHistory/>
-                            <TravelStats/>
+                            <TravelStats walkD={this.state.walkD}/>
                             {/* This is where the card points component is stored */}
                         </View>
                     </Row>
@@ -123,5 +158,7 @@ const TabNavigator = createMaterialBottomTabNavigator(
         activeColor: '#FFFFFF', // changes label color
     },
 );
+
+
 
 export default createAppContainer(TabNavigator);

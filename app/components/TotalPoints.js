@@ -10,16 +10,26 @@ type Props = {
     totalP:number;
 }
 
+type State = {
+    totalPoints:number;
+}
 
-class TotalPoints extends React.Component<Props> {
+
+class TotalPoints extends React.Component<Props, State> {
 
     constructor(props) {
         super(props);
         this.state = {
-            totalPoints: this.props.totalP
+            totalPoints: 0,
         };
-
     }
+    componentDidMount(): void {
+        this.state = {
+            totalPoints: this.props.totalP,
+        };
+    }
+
+
 
     render() {
         return (
@@ -45,7 +55,7 @@ class TotalPoints extends React.Component<Props> {
                         <View style={cardStyles.centerContainerItems}>
                             <Text style={cardStyles.pointsTextStyle}>
                                 {/*Change the state.totalPoints to change the total points of the card*/}
-                                {this.state.totalPoints}
+                                {this.props.totalP}
                                 {/*Change the state.totalPoints to change the total points of the card*/}
                             </Text>
                             <Text style={{fontSize: 18}}>Total Points</Text>

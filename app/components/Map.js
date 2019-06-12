@@ -6,18 +6,11 @@ import MapView from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 import MapMarker from "react-native-maps/lib/components/MapMarker";
 import {GooglePlacesAutocomplete} from "react-native-google-places-autocomplete";
+import SQLite from "react-native-sqlite-storage";
 
-type Props = {
-    totalP:number;
-};
+type Props = {};
 
 type State = {
-    region:{
-        latitude:number,
-        longitude:number,
-        latitudeDelta: number,
-        longitudeDelta: number,
-    };
     showList:boolean,
     lat:number,
     long:number,
@@ -26,7 +19,7 @@ type State = {
     color2:string;
     distance:number;
     duration:number;
-    destination:string;
+    origin:string;
     selectedIndex: number,
     reward:number,
     earned:number,
@@ -36,9 +29,12 @@ type State = {
     dLong:number;
     dExists:boolean;
     startShow:boolean;
+    totalPoints:number;
+    totalDistance:number;
 
 };
 
+const db = SQLite.openDatabase({name:'geco.db', createFromLocation: '~/geco.db', location: 'Library' });
 
 class Map extends React.Component<Props, State> {
 
@@ -48,6 +44,7 @@ class Map extends React.Component<Props, State> {
 
 
         this.state = {
+
             reward:0,
             earned:0,
             color:'lightgreen',
@@ -64,10 +61,12 @@ class Map extends React.Component<Props, State> {
             dLat: 0,
             dLong: 0,
             error:null,
-            destination:'',
+            origin:'',
             startShow:true,
             dExists: false,
             showGroup:true,
+            totalPoints:0,
+            totalDistance:0,
         };
         this.updateIndex = this.updateIndex.bind(this);
         this.startJourney = this.startJourney.bind(this);
@@ -82,11 +81,24 @@ class Map extends React.Component<Props, State> {
                     lat: position.coords.latitude,
                     long: position.coords.longitude,
                     error: null,
+
                 });
             },
             (error) => this.setState({ error: error.message }),
             { enableHighAccuracy: true, timeout: 3000 },
         );
+        this.setState({oLat:this.state.lat,oLong: this.state.long});
+        db.transaction((tx) => {
+            tx.executeSql('SELECT * FROM user WHERE uid=?', [1], (tx, results)=>{
+                var len = results.rows.length;
+                if (len > 0) {
+                    var row = results.rows.item(0);
+                    this.setState({ totalPoints:row.points, totalDistance:row.distance});
+                }
+                else
+                    Alert.alert('a', 'not')
+            });
+        });
     }
     updateIndex (selectedIndex) {
         this.setState({selectedIndex});
@@ -148,6 +160,17 @@ class Map extends React.Component<Props, State> {
         if (this.state.lat.toFixed(2) === this.state.dLat.toFixed(2) && this.state.long.toFixed(2) === this.state.dLong.toFixed(2)){
             this.setState({type:'rewarded', color2:'blue', dExists:false, startShow:true})
             Alert.alert('Congratulations!', 'You have earned ' + this.state.reward + ' points');
+
+            db.transaction((tx) => {
+                tx.executeSql('UPDATE user  SET points=?, distance=?  WHERE uid=?', [this.state.reward+this.state.totalPoints, this.state.distance+this.state.totalDistance,1], (tx,result) =>{
+                });
+            });
+            var insert = 'INSERT INTO trips (origin, destination, duration, distance, uid, points) VALUES (?,?,?,?,?,?)';
+            db.transaction((tx) => {
+                tx.executeSql( insert, [ this.state.oLat.toString() + ', ' + this.state.oLong.toString(), this.state.dLat.toString() + ', ' + this.state.dLong.toString() , this.state.duration,this.state.distance,1, this.state.reward], (tx,result) =>{
+                    Alert.alert('inserted');
+                }, error => {Alert.alert('e', error)});
+            });
         }
         else{
             this.setState({type:'not rewarded', color2:'red'})
