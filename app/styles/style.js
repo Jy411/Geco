@@ -62,12 +62,12 @@ const cardStyles = StyleSheet.create({
         height: hp(18),
         width: wp(90),
         borderRadius: 20,
+        paddingBottom: hp(1)
     },
     centerContainerItems: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-
     },
     totalPointsHistoryNumberAlignment: {
         // width: wp(80),
@@ -83,12 +83,12 @@ const cardStyles = StyleSheet.create({
         color: 'black',
     },
     dividerStyle: {
-        width: wp(15),
+        width: wp(20),
         borderWidth: 1,
         transform: [{ rotate: '90deg'}]
     },
     pointsTextStyle: {
-        fontSize: 24,
+        fontSize: 28,
         fontWeight: 'bold',
         color: 'black'
     },
@@ -98,6 +98,10 @@ const cardStyles = StyleSheet.create({
     },
     distanceTrackerCaptionStyle: {
         fontSize: 12
+    },
+    travelStatsCard: {
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 });
 
@@ -105,6 +109,7 @@ const cardStyles = StyleSheet.create({
 const homeStyle = StyleSheet.create({
     scrollView: {
         flex: 1,
+        backgroundColor: 'rgb(109,195,129)',
     },
     centerChildren: {
         alignItems: 'center', // center the children inside the view
@@ -118,14 +123,72 @@ const homeStyle = StyleSheet.create({
     },
     avatarText: {
         fontSize: 24,
-        color: 'black',
+        color: 'white',
     },
 
 
 });
 
+// Used in Profile.js
+const profileStyle = StyleSheet.create({
+    redemptionBoxContainer: {
+        borderRadius: 20,
+        height: hp(35),
+        width: wp(90)
+    },
+    redemptionBox: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    redeemProfile: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'white'
+    },
+    redeemProfileText: {
+        fontSize: 20,
+        color: 'black'
+    }
+});
+
+const redemptionCardStyle = StyleSheet.create({
+   cardContainer: {
+       borderColor: 'white',
+       borderRadius: 10,
+       backgroundColor: 'white',
+       width: wp(95),
+       height: hp(15)
+   },
+    lastColOfCard: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'center'
+    },
+    establishmentTitle: {
+        fontSize: 20,
+        fontWeight: '500',
+        color: 'black',
+    },
+    redemptionDescText: {
+        fontSize: 15,
+        fontWeight: '300',
+        color: 'black'
+    },
+    redemptionBtn: {
+        backgroundColor: '#235f22',
+        borderRadius: 15,
+        alignSelf: 'flex-end',
+        width: wp(20)
+    }
+});
+
 export  {
     slides,
     cardStyles,
-    homeStyle
+    homeStyle,
+    profileStyle,
+    redemptionCardStyle
 }
