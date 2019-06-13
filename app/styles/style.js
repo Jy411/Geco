@@ -141,6 +141,16 @@ const profileStyle = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
+    redeemProfile: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'white'
+    },
+    redeemProfileText: {
+        fontSize: 20,
+        color: 'black'
+    }
 });
 
 const redemptionCardStyle = StyleSheet.create({

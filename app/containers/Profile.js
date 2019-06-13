@@ -19,15 +19,13 @@ const transportIcon = require('../images/Sedan2.png');
 const othersIcon = require('../images/Other.png');
 
 
-
 class Profile extends Component {
     constructor(){
         super();
         this.state = {
             // totalPoints: props.totalPoints,
         };
-        // const totalPoints = this.props.navigation.getParam('totalPoints');
-        // console.log(totalPoints);
+
         console.log("=====");
     };
 
@@ -61,13 +59,13 @@ class Profile extends Component {
                     </Row>
                     <Row size={1}>
                         <Col>
-                            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white'}}>
-                                <Text style={{fontSize: 20, color: 'black'}}>redeem</Text>
+                            <View style={profileStyle.redeemProfile}>
+                                <Text style={profileStyle.redeemProfileText}>redeem</Text>
                             </View>
                         </Col>
                         <Col>
-                            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white'}}>
-                                <Text style={{fontSize: 20, color: 'black'}}>profile</Text>
+                            <View style={profileStyle.redeemProfile}>
+                                <Text style={profileStyle.redeemProfileText}>profile</Text>
                             </View>
                         </Col>
                     </Row>
@@ -140,14 +138,11 @@ const ProfileNavigator = createStackNavigator(
             navigationOptions: () => ({
                 header: null
             }),
-            // params: {
-            //     totalPoints: ,
-            // }
         },
         Food: {
             screen: FoodRedemptionModal,
             navigationOptions: () => ({
-                headerTitle: 'Food and Beverages',
+                headerTitle: 'Groceries',
             })
         },
         Transport: {

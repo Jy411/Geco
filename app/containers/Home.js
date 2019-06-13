@@ -93,12 +93,11 @@ const TabNavigator = createMaterialBottomTabNavigator(
                 tabBarLabel: "Profile",
                 tabBarColor: "#4F5D4F",
                 tabBarIcon: <Icon size={24} name="user" color={"#FFFFFF"}/> ,
-                tabBarOnPress: ({navigation, defaultHandler}) => {
+                tabBarOnPress: ({navigation}) => {
                     console.log('onPress:', navigation.state.routeName);
                     navigation.navigate('Profile', {
                         tPnts: 20000,
                     });
-                    // defaultHandler();
                 },
             }
         },
