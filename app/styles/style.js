@@ -27,7 +27,7 @@ const slides = [
         textStyle: introSliderStyles.sliderText,
         image: require('../images/HDTree1.png'),
         imageStyle: introSliderStyles.image,
-        backgroundColor: '#a4df92',
+        backgroundColor: 'rgb(109,195,129)',
     },
     {
         key: 's2',
@@ -35,7 +35,7 @@ const slides = [
         textStyle: introSliderStyles.sliderText,
         image: require('../images/HDTree3.png'),
         imageStyle: introSliderStyles.image,
-        backgroundColor: '#a4df92',
+        backgroundColor: 'rgb(109,195,129)',
     },
     {
         key: 's3',
@@ -43,7 +43,7 @@ const slides = [
         textStyle: introSliderStyles.sliderText,
         image: require('../images/HDTree5.png'),
         imageStyle: introSliderStyles.image,
-        backgroundColor: '#a4df92',
+        backgroundColor: 'rgb(109,195,129)',
     },
     {
         key: 's4',
@@ -51,7 +51,7 @@ const slides = [
         textStyle: introSliderStyles.sliderText,
         image: require('../images/earth.png'),
         imageStyle: introSliderStyles.image,
-        backgroundColor: '#a4df92',
+        backgroundColor: 'rgb(109,195,129)',
     },
 ];
 
@@ -122,8 +122,9 @@ const homeStyle = StyleSheet.create({
         backgroundColor: 'brown', // set the background color of the view
     },
     avatarText: {
-        fontSize: 24,
+        fontSize: 30,
         color: 'white',
+        fontWeight: 'bold',
     },
 
 

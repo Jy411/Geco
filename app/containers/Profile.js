@@ -12,27 +12,46 @@ import FoodRedemptionModal from "../modal/FoodRedemptionModal";
 import TransportationRedemptionModal from "../modal/TransportationRedemptionModal";
 import ShoppingRedemptionModal from "../modal/ShoppingRedemptionModal";
 import OthersRedemptionModal from "../modal/OthersRedemptionModal";
+import SQLite from "react-native-sqlite-storage";
 
 const foodIcon = require('../images/Groceries.png');
 const shoppingIcon = require('../images/Shopping.png');
 const transportIcon = require('../images/Sedan2.png');
 const othersIcon = require('../images/Other.png');
 
+const db = SQLite.openDatabase({name:'geco.db', createFromLocation: '~/geco.db', location: 'Library' });
 
 class Profile extends Component {
     constructor(){
         super();
         this.state = {
-            // totalPoints: props.totalPoints,
+            username: '',
+            totalP: 0
         };
 
         console.log("=====");
     };
 
+    componentWillMount() {
+        const { navigation } = this.props;
+        const userId = navigation.getParam('userId', 2);
+
+        db.transaction((tx) => {
+            tx.executeSql('SELECT * FROM user WHERE uid=?', [userId], (tx, results)=>{
+                var len = results.rows.length;
+                if (len > 0) {
+                    var row = results.rows.item(0);
+                    this.setState({totalP:row.points, username: row.name + ' ' + row.surname});
+                }
+            });
+        });
+
+
+    }
 
     render() {
-        const { navigation } = this.props;
-        const totalPoints = navigation.getParam('tPnts', 100);
+        // const { navigation } = this.props;
+        // const totalPoints = navigation.getParam('totalPoints', 100);
         return (
             <ImageBackground
                 style={{flex:1, height: hp(33), width: undefined}}
@@ -51,9 +70,9 @@ class Profile extends Component {
                             borderTopLeftRadius: 25,
                             width: wp(100),
                             backgroundColor: 'rgb(109,195,129)'}}>
-                            <Text style={{fontSize: 30, color: 'white', paddingLeft: wp(5)}}>Mr. Annstone</Text>
+                            <Text style={{fontSize: 30, fontWeight: 'bold', color: 'white', paddingLeft: wp(5)}}>{this.state.username}</Text>
                             <Text style={{fontSize: 20, color: 'white', paddingLeft: wp(5)}}>
-                                {JSON.stringify(totalPoints)}
+                                {this.state.totalP} Points
                             </Text>
                         </View>
                     </Row>

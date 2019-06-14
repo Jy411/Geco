@@ -8,86 +8,92 @@ import { Row, Grid } from "react-native-easy-grid";
 import { homeStyle } from "../styles/style";
 
 import Playground from "./Playground";
-import TravelHistory from "./TravelHistory";
 import DisplayProfile from "../components/DisplayProfile";
 import TotalPoints from "../components/TotalPoints";
 import DistanceAchievementsTracker from "../components/DistanceAchievementsTracker";
 import PointsHistory from "../components/PointsHistory";
 import TravelStats from "../components/TravelStats";
 import SQLite from "react-native-sqlite-storage";
-import {Button} from "react-native-elements";
 
+import ProfileContainer from "./Profile";
 
 const db = SQLite.openDatabase({name:'geco.db', createFromLocation: '~/geco.db', location: 'Library' });
 
-type Props = {
-    userId:number;
-};
+// type Props = {
+//     userId:number;
+// };
+//
+// type State = {
+//     id:number;
+//     username:string;
+//     name:string;
+//     totalPoint:number;
+//     totalDistance:number;
+//     walkD:number;
+// };
 
-type State = {
-    id:number;
-    username:string;
-    name:string;
-    totalPoint:number;
-    totalDistance:number;
-    walkD:number;
-};
-
-class Home extends Component <Props,State>{
+class Home extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            id:1,
-            username: 'Guy Who Hates Straws',
-            name: 'a ' ,
+            userId: 0,
+            name: 'Placeholder',
             totalPoint: 0,
             totalDistance:0,
             walkD:0,
         };
-
-
     }
 
-    // a function and a prop it will receive
-    // states can be used to change prop
-    changeUsername(newName) {
-        this.setState({username: newName})
-    }
-    componentWillReceiveProps(nextProps: Readonly<Props>, nextContext: any): void {
-        this.setState({id:this.props.userId});
+    // componentWillReceiveProps(nextProps: Readonly<Props>, nextContext: any): void {
+    //     this.setState({id:this.props.userId});
+    // }
 
-    }
+    componentWillMount() {
+        /* 2. Gets the param userId from the login screen to determine which userId to use in SQL Query */
+        const { navigation } = this.props;
+        const userId = navigation.getParam('userId', 2);
 
-    componentDidMount(): void {
         db.transaction((tx) => {
-            tx.executeSql('SELECT * FROM user WHERE uid=?', [this.state.id], (tx, results)=>{
+            tx.executeSql('SELECT * FROM user WHERE uid=?', [userId], (tx, results)=>{
                 var len = results.rows.length;
                 if (len > 0) {
                     var row = results.rows.item(0);
+                    // Sets Name, Points and Total Distance depending on userId
                     this.setState({name:row.name + ' ' + row.surname, totalPoint:row.points, totalDistance:row.distance});
+                    console.log(`Home.js totalPoints is: ${this.state.totalPoint}`);
+                    console.log(`Home.js LOCALDB totalPoints is: ${row.points}`);
                 }
-                else
-                    Alert.alert('a', 'not')
             });
         });
+
         db.transaction((tx) => {
-            tx.executeSql('SELECT SUM(distance) as sum FROM trips WHERE uid=?', [1], (tx, results)=>{
+            // Gets sum of all distance travelled from the trips a userId has made
+            tx.executeSql('SELECT SUM(distance) as sum FROM trips WHERE uid=?', [userId], (tx, results)=>{
                 var len = results.rows.length;
                 if (len > 0) {
                     var row = results.rows.item(0);
                     this.setState({walkD:row.sum});
                 }
-                else
-                    Alert.alert('a', 'not');
-            }, error => {
-                Alert.alert('a', error)
             });
+        });
+    }
 
+    componentDidUpdate() {
+        db.transaction((tx) => {
+            tx.executeSql('SELECT * FROM user WHERE uid=?', [userId], (tx, results)=>{
+                var len = results.rows.length;
+                if (len > 0) {
+                    var row = results.rows.item(0);
+                    // Sets Name, Points and Total Distance depending on userId
+                    this.setState({name:row.name + ' ' + row.surname, totalPoint:row.points, totalDistance:row.distance});
+                    console.log(`UPDATEDHome.js totalPoints is: ${this.state.totalPoint}`);
+                    console.log(`UPDATEDHome.js LOCALDB totalPoints is: ${row.points}`);
+                }
+            });
         });
     }
 
     render() {
-
         return (
             <ScrollView style={homeStyle.scrollView}>
 
@@ -96,7 +102,7 @@ class Home extends Component <Props,State>{
                         {/* This view is in a row */}
                         <View style={[homeStyle.centerChildren, homeStyle.setViewWidth]}>
                             <DisplayProfile/>
-                            <Text style={homeStyle.avatarText}>{this.state.name}</Text>
+                            <Text style={[homeStyle.avatarText, {marginTop: 10}]}>{this.state.name}</Text>
                         </View>
                         {/* This view is in a row */}
                     </Row>
@@ -105,23 +111,20 @@ class Home extends Component <Props,State>{
                         <View style={[homeStyle.centerChildren, homeStyle.setViewWidth]}>
                             {/* This is where the card points component is stored */}
                             <TotalPoints totalP={this.state.totalPoint}/>
-                            <DistanceAchievementsTracker totalDis={this.state.totalDistance}/>
+                            <DistanceAchievementsTracker totalDist={this.state.totalDistance}/>
                             <PointsHistory/>
                             <TravelStats walkD={this.state.walkD}/>
                             {/* This is where the card points component is stored */}
                         </View>
                     </Row>
                 </Grid>
-
-
-
             </ScrollView>
         )
     }
 }
 
 
-const TabNavigator = createMaterialBottomTabNavigator(
+let TabNavigator = createMaterialBottomTabNavigator(
     {
         Home: {
             screen: Home,
@@ -138,18 +141,26 @@ const TabNavigator = createMaterialBottomTabNavigator(
                 title: "Playground",
                 tabBarLabel: "Playground",
                 tabBarColor: "#81A171",
-                tabBarIcon: <Icon size={24} name="houzz" color={"#FFFFFF"}/> ,
+                tabBarIcon: <Icon size={24} name="map" color={"#FFFFFF"}/> ,
             }
         },
         Profile: {
-            screen: TravelHistory,
-            navigationOptions: {
-                title: "Travel History",
-                tabBarLabel: "Travel History",
+            screen: ProfileContainer,
+            navigationOptions: ({navigation}) => ({
+                title: "Profile",
+                tabBarLabel: "Profile",
                 tabBarColor: "#4F5D4F",
-                tabBarIcon: <Icon size={24} name="houzz" color={"#FFFFFF"}/> ,
-            }
-        },
+                tabBarIcon: <Icon size={24} name="user" color={"#FFFFFF"}/> ,
+                // This part does not work for some reason
+                tabBarOnPress: ({navigation, defaultHandler}) => {
+                    navigation.navigate('Profile',
+                        {
+                            userId: 2
+                        });
+                    defaultHandler();
+                }
+            })
+            },
     },
     {
         initialRouteName: 'Home',

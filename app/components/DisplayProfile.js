@@ -19,11 +19,15 @@ class DisplayProfile extends React.Component {
     render() {
         return (
             <Avatar
-                onPress={() => this.changeAvatar()}
+                source={require('../images/ProfileStock.jpg')}
+                imageProps={{
+                    resizeMode: 'cover'
+                }}
+                // onPress={() => this.changeAvatar()}
                 rounded
-                size = "xlarge"
-                overlayContainerStyle={{backgroundColor: '#afa99b'}} // background color of avatar
-                icon = {this.state.avatarImage}
+                size={'xlarge'}
+                // overlayContainerStyle={{backgroundColor: 'rgb(109,195,129)'}} // background color of avatar
+                // icon = {this.state.avatarImage}
             />
         )
     }

@@ -5,11 +5,6 @@ import SQLite from "react-native-sqlite-storage";
 import TotalPoints from "../components/TotalPoints";
 
 import { homeStyle } from "../styles/style";
-import DistanceAchievementsTracker from "../components/DistanceAchievementsTracker";
-import PointsHistory from "../components/PointsHistory";
-import TravelStats from "../components/TravelStats";
-import {Grid, Row} from "react-native-easy-grid";
-import DisplayProfile from "../components/DisplayProfile";
 
 const db = SQLite.openDatabase({name:'geco.db', createFromLocation: '~/geco.db', location: 'Library' });
 

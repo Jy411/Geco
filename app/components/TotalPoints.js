@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component} from "react";
 import { View, Text} from "react-native";
 import { Card, Divider } from 'react-native-elements';
 import { Col, Grid } from "react-native-easy-grid";
@@ -6,27 +6,25 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { cardStyles } from "../styles/style"; // styling for card
 
-type Props = {
-    totalP:number;
-}
+// type Props = {
+//     totalP:number;
+// }
+//
+// type State = {
+//     totalPoints:number;
+// }
 
-type State = {
-    totalPoints:number;
-}
 
-
-class TotalPoints extends React.Component<Props, State> {
-
+class TotalPoints extends Component{
     constructor(props) {
         super(props);
         this.state = {
             totalPoints: 0,
         };
     }
-    componentDidMount(): void {
-        this.state = {
-            totalPoints: this.props.totalP,
-        };
+
+    componentWillMount() {
+        this.setState({totalPoints: this.props.totalP});
     }
 
 
@@ -41,7 +39,7 @@ class TotalPoints extends React.Component<Props, State> {
                     {/*First Column*/}
                     <Col size={1}>
                         <View style={cardStyles.centerContainerItems}>
-                            <Icon size={36} name="trophy" color={"#008e66"}/>
+                            <Icon size={36} name="trophy" color={"#2CC55E"}/>
                         </View>
                     </Col>
 

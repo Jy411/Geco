@@ -12,12 +12,7 @@ type Props ={
     walkD:number;
 };
 
-type State ={
-
-};
-
-
-class TravelStats extends React.Component <Props,State> {
+class TravelStats extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -39,7 +34,7 @@ class TravelStats extends React.Component <Props,State> {
                     <Col size={1}>
                         <View style={{paddingLeft: wp(3)}}>
                             <Icon name='walking'
-                                  color='green'
+                                  color='#2CC55E'
                                   size={24}
                             />
                         </View>
@@ -54,7 +49,7 @@ class TravelStats extends React.Component <Props,State> {
                     <Col size={1}>
                         <View>
                             <Text>
-                                <Text style={{fontSize: 20, fontWeight: '200'}}>{this.props.walkD}</Text>
+                                <Text style={{fontSize: 20, fontWeight: '200'}}>{this.state.walkDist}</Text>
                                 <Text style={{fontSize: 15, fontWeight: '200'}}> KM</Text>
                             </Text>
                         </View>
@@ -67,7 +62,7 @@ class TravelStats extends React.Component <Props,State> {
                     <Col size={1}>
                         <View style={{paddingLeft: wp(2)}}>
                             <Icon name='car-side'
-                                  color='green'
+                                  color='#2CC55E'
                                   size={24}
                             />
                         </View>
@@ -95,7 +90,7 @@ class TravelStats extends React.Component <Props,State> {
                     <Col size={1}>
                         <View style={{paddingLeft: wp(3)}}>
                             <Icon name='train'
-                                  color='green'
+                                  color='#2CC55E'
                                   size={24}
                             />
                         </View>
@@ -122,35 +117,6 @@ class TravelStats extends React.Component <Props,State> {
     }
 }
 
-
-// Moved to style.js
-// const totalPointsStyle = StyleSheet.create({
-//     cardStyle: {
-//         height: hp(10),
-//         width: wp(90),
-//         borderRadius: 10,
-//     },
-//     center: {
-//         flex: 1,
-//         justifyContent: 'center',
-//         alignItems: 'center'
-//     },
-//     dividerStyle: {
-//         width: wp(8),
-//         borderWidth: 1,
-//         transform: [{ rotate: '90deg'}]
-//     },
-//     pointsTextStyle: {
-//         fontSize: 24,
-//         color: 'black'
-//     },
-//     centerContainerItems: {
-//         flex: 1,
-//         justifyContent: 'center',
-//         alignItems: 'center'
-//     }
-// });
-// Moved to style.js
 
 export default TravelStats;
 

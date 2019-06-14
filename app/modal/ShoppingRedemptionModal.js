@@ -1,8 +1,7 @@
 import React from "react";
 import {View, ScrollView, Image} from "react-native";
 
-import {Col, Grid, Row} from "react-native-easy-grid";
-import {heightPercentageToDP as hp, widthPercentageToDP as wp} from "react-native-responsive-screen";
+import {Grid, Row} from "react-native-easy-grid";
 
 import {cardStyles, homeStyle} from "../styles/style";
 import RedemptionCard from "../components/RedemptionCard";
@@ -33,19 +32,17 @@ export default class ShoppingRedemptionModal extends React.Component {
         return (
             <ScrollView style={homeStyle.scrollView}>
                 <Grid>
-                    {listOfShops.map((item, key) =>
+                    {listOfShops.map((item) =>
                         <Row>
                             <View style={cardStyles.centerContainerItems}>
                                 <RedemptionCard
-                                    key={key}
+                                    key={item.shopName}
                                     establishmentLogo={item.shopLogo}
                                     establishmentName={item.shopName}
                                     redemptionDescription={item.redeemDesc}
                                     redemptionPoints={item.points}/>
                             </View>
                         </Row>
-
-
                     )}
                 </Grid>
             </ScrollView>

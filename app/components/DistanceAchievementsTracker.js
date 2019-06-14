@@ -9,7 +9,7 @@ import {heightPercentageToDP as hp, widthPercentageToDP as wp} from "react-nativ
 import { cardStyles } from "../styles/style"; // styling for card
 
 type Props = {
-    totalDis:number;
+    totalDist:number;
 };
 
 class DistanceAchievementsTracker extends React.Component <Props>{
@@ -37,7 +37,7 @@ class DistanceAchievementsTracker extends React.Component <Props>{
                         <View>
                             <ProgressBar width={wp(82)}
                                          height={hp(3)}
-                                         progress={this.props.totalDis/100}
+                                         progress={this.props.totalDist/100}
                                          borderWidth={0}
                                          // borderColor={'#b1b1b1'}
                                          borderRadius={20}
@@ -54,7 +54,7 @@ class DistanceAchievementsTracker extends React.Component <Props>{
                         <Col size={2}>
                             <View style={{alignItems: 'flex-start'}}>
                                 <Text>
-                                    <Text style={cardStyles.captionTextStyle}>Little Boi Steps</Text>
+                                    <Text style={cardStyles.captionTextStyle}>EcoDistance</Text>
                                     <Text style={cardStyles.distanceTrackerCaptionStyle}> Progress</Text>
                                 </Text>
                             </View>
@@ -63,7 +63,7 @@ class DistanceAchievementsTracker extends React.Component <Props>{
                         <Col size={1}>
                             <View style={{alignItems: 'flex-end'}}>
                                 <Text>
-                                    <Text style={{fontWeight: 'bold'}}>{this.props.totalDis}</Text>
+                                    <Text style={{fontWeight: 'bold'}}>{this.props.totalDist}</Text>
                                     <Text>/100KM</Text>
                                 </Text>
                             </View>

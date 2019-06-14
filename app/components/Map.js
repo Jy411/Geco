@@ -162,7 +162,7 @@ class Map extends React.Component<Props, State> {
             Alert.alert('Congratulations!', 'You have earned ' + this.state.reward + ' points');
 
             db.transaction((tx) => {
-                tx.executeSql('UPDATE user  SET points=?, distance=?  WHERE uid=?', [this.state.reward+this.state.totalPoints, this.state.distance+this.state.totalDistance,1], (tx,result) =>{
+                tx.executeSql('UPDATE user SET points=?, distance=?  WHERE uid=?', [this.state.reward+this.state.totalPoints, this.state.distance+this.state.totalDistance,1], (tx,result) =>{
                 });
             });
             var insert = 'INSERT INTO trips (origin, destination, duration, distance, uid, points) VALUES (?,?,?,?,?,?)';
@@ -282,14 +282,13 @@ class Map extends React.Component<Props, State> {
                     {/*    }}*/}
                     {/*    currentLocation={false}*/}
                     {/*/>*/}
-                    <MapView style={styles.map} initialRegion={{
-                        latitude: this.state.lat,
-                        longitude: this.state.long,
-                        latitudeDelta: 0.0922,
-                        longitudeDelta: 0.0421,
-
-                    }}
-
+                    <MapView style={styles.map}
+                             initialRegion={{
+                                 latitude: this.state.lat,
+                                 longitude: this.state.long,
+                                 latitudeDelta: 0.0922,
+                                 longitudeDelta: 0.0421,
+                             }}
                              zoomEnabled={true}
                              showsCompass={true}
                              mapType={"standard"}
@@ -354,47 +353,27 @@ class Map extends React.Component<Props, State> {
                 </View>
 
         );
-
     }
-
 }
 
-
-
 const styles = StyleSheet.create({
-
     container: {
         position: 'absolute',
-
         top: 170,
-
         left: 0,
-
         right: 0,
-
         bottom: 120,
-
         justifyContent: 'flex-end',
-
         alignItems: 'center',
-
     },
-
     map: {
-
-
-
         top: 170,
-
         left: 0,
-
         right: 0,
-
         bottom: 0,
         width:'100%',
         height:'80%',
     },
-
 });
 
 
