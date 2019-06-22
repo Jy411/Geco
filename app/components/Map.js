@@ -85,7 +85,7 @@ class Map extends React.Component<Props, State> {
                 });
             },
             (error) => this.setState({ error: error.message }),
-            { enableHighAccuracy: true, timeout: 3000 },
+            { enableHighAccuracy: true, timeout: 30000 },
         );
         this.setState({oLat:this.state.lat,oLong: this.state.long});
         db.transaction((tx) => {
