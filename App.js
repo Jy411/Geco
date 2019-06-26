@@ -31,7 +31,7 @@ class App extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            showRealApp: true, // to determine whether the app is shown or not
+            showRealApp: false, // to determine whether the app is shown or not
             username:'',
             text:'',
             pass:'',

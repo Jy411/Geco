@@ -71,9 +71,8 @@ class Map extends React.Component<Props, State> {
         this.updateIndex = this.updateIndex.bind(this);
         this.startJourney = this.startJourney.bind(this);
         this.endJourney = this.endJourney.bind(this);
-
-
     }
+
     componentDidMount() {
         navigator.geolocation.getCurrentPosition(
             (position) => {
@@ -104,6 +103,7 @@ class Map extends React.Component<Props, State> {
         this.setState({selectedIndex});
         // Alert.alert(selectedIndex.toString());
     }
+
     getFare(duration:number, distance:number, selectedIndex) {
 
         if (selectedIndex=== 0){
@@ -144,6 +144,7 @@ class Map extends React.Component<Props, State> {
         );
         this.setState({color:'blue', reward:Math.round(this.getFare(this.state.duration,this.state.distance, this.state.selectedIndex) ), startShow:false});
     }
+
     endJourney (){
         navigator.geolocation.getCurrentPosition(
             (position) => {
@@ -167,7 +168,8 @@ class Map extends React.Component<Props, State> {
             });
             var insert = 'INSERT INTO trips (origin, destination, duration, distance, uid, points) VALUES (?,?,?,?,?,?)';
             db.transaction((tx) => {
-                tx.executeSql( insert, [ this.state.oLat.toString() + ', ' + this.state.oLong.toString(), this.state.dLat.toString() + ', ' + this.state.dLong.toString() , this.state.duration,this.state.distance,1, this.state.reward], (tx,result) =>{
+                tx.executeSql( insert, [ this.state.oLat.toString() + ', ' + this.state.oLong.toString(), this.state.dLat.toString() + ', ' + this.state.dLong.toString() , this.state.duration,this.state.distance,1, this.state.reward],
+                    (tx,result) => {
                     Alert.alert('inserted');
                 }, error => {Alert.alert('e', error)});
             });

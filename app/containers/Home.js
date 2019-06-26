@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Alert } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity} from 'react-native';
 import {createAppContainer} from "react-navigation";
 import {createMaterialBottomTabNavigator} from "react-navigation-material-bottom-tabs";
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -16,6 +16,7 @@ import TravelStats from "../components/TravelStats";
 import SQLite from "react-native-sqlite-storage";
 
 import ProfileContainer from "./Profile";
+import CaloriesCounter from "../components/CaloriesCounter";
 
 const db = SQLite.openDatabase({name:'geco.db', createFromLocation: '~/geco.db', location: 'Library' });
 
@@ -27,7 +28,7 @@ const db = SQLite.openDatabase({name:'geco.db', createFromLocation: '~/geco.db',
 //     id:number;
 //     username:string;
 //     name:string;
-//     totalPoint:number;
+//     totalPoints:number;
 //     totalDistance:number;
 //     walkD:number;
 // };
@@ -38,10 +39,11 @@ class Home extends Component{
         this.state = {
             userId: 0,
             name: 'Placeholder',
-            totalPoint: 0,
+            totalPoints: 0,
             totalDistance:0,
             walkD:0,
         };
+        this.handleClick = this.handleClick.bind(this);
     }
 
     // componentWillReceiveProps(nextProps: Readonly<Props>, nextContext: any): void {
@@ -52,6 +54,13 @@ class Home extends Component{
         /* 2. Gets the param userId from the login screen to determine which userId to use in SQL Query */
         const { navigation } = this.props;
         const userId = navigation.getParam('userId', 2);
+        this.setState({userId: userId});
+        console.log('componentWillMount() called');
+
+        // Update points to 5000
+        // db.transaction((tx) => {
+        //     tx.executeSql('UPDATE user SET points=6750 WHERE uid=2');
+        // });
 
         db.transaction((tx) => {
             tx.executeSql('SELECT * FROM user WHERE uid=?', [userId], (tx, results)=>{
@@ -59,8 +68,8 @@ class Home extends Component{
                 if (len > 0) {
                     var row = results.rows.item(0);
                     // Sets Name, Points and Total Distance depending on userId
-                    this.setState({name:row.name + ' ' + row.surname, totalPoint:row.points, totalDistance:row.distance});
-                    console.log(`Home.js totalPoints is: ${this.state.totalPoint}`);
+                    this.setState({name:row.name + ' ' + row.surname, totalPoints:row.points, totalDistance:row.distance});
+                    console.log(`Home.js totalPoints is: ${this.state.totalPoints}`);
                     console.log(`Home.js LOCALDB totalPoints is: ${row.points}`);
                 }
             });
@@ -78,16 +87,16 @@ class Home extends Component{
         });
     }
 
-    componentDidUpdate() {
+    // Temporary hack to get points to update
+    handleClick() {
+        console.log('CLICKED!');
         db.transaction((tx) => {
-            tx.executeSql('SELECT * FROM user WHERE uid=?', [userId], (tx, results)=>{
+            tx.executeSql('SELECT * FROM user WHERE uid=?', [this.state.userId], (tx, results)=>{
                 var len = results.rows.length;
                 if (len > 0) {
                     var row = results.rows.item(0);
                     // Sets Name, Points and Total Distance depending on userId
-                    this.setState({name:row.name + ' ' + row.surname, totalPoint:row.points, totalDistance:row.distance});
-                    console.log(`UPDATEDHome.js totalPoints is: ${this.state.totalPoint}`);
-                    console.log(`UPDATEDHome.js LOCALDB totalPoints is: ${row.points}`);
+                    this.setState({totalPoints:row.points});
                 }
             });
         });
@@ -101,7 +110,9 @@ class Home extends Component{
                     <Row size={1}>
                         {/* This view is in a row */}
                         <View style={[homeStyle.centerChildren, homeStyle.setViewWidth]}>
-                            <DisplayProfile/>
+                            <TouchableOpacity onPress={this.handleClick()}>
+                                <DisplayProfile/>
+                            </TouchableOpacity>
                             <Text style={[homeStyle.avatarText, {marginTop: 10}]}>{this.state.name}</Text>
                         </View>
                         {/* This view is in a row */}
@@ -110,10 +121,11 @@ class Home extends Component{
                     <Row>
                         <View style={[homeStyle.centerChildren, homeStyle.setViewWidth]}>
                             {/* This is where the card points component is stored */}
-                            <TotalPoints totalP={this.state.totalPoint}/>
+                            <TotalPoints totalP={this.state.totalPoints}/>
                             <DistanceAchievementsTracker totalDist={this.state.totalDistance}/>
                             <PointsHistory/>
                             <TravelStats walkD={this.state.walkD}/>
+                            <CaloriesCounter/>
                             {/* This is where the card points component is stored */}
                         </View>
                     </Row>

@@ -10,7 +10,8 @@ const listOfShops = [
         shopLogo: <Image source={require('../images/recycle.jpg')} style={{width: '100%', height: undefined, aspectRatio: 1}} resizeMode={'center'}/>,
         shopName: 'The Re-use Initiative',
         redeemDesc: 'Redeem One (1) Wooden Container',
-        points: '4000\nPoints'
+        points: '4000\nPoints',
+        value: 4000,
     },
 ];
 
@@ -19,15 +20,17 @@ export default class OthersRedemptionModal extends React.Component {
         return (
             <ScrollView style={homeStyle.scrollView}>
                 <Grid>
-                    {listOfShops.map((item) =>
+                    {listOfShops.map((item, key) =>
                         <Row>
                             <View style={cardStyles.centerContainerItems}>
                                 <RedemptionCard
-                                    key={item.shopName}
+                                    key={key}
                                     establishmentLogo={item.shopLogo}
                                     establishmentName={item.shopName}
                                     redemptionDescription={item.redeemDesc}
-                                    redemptionPoints={item.points}/>
+                                    redemptionPoints={item.points}
+                                    pointValue={item.value}
+                                />
                             </View>
                         </Row>
                     )}

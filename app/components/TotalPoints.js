@@ -14,8 +14,7 @@ import { cardStyles } from "../styles/style"; // styling for card
 //     totalPoints:number;
 // }
 
-
-class TotalPoints extends Component{
+export default class TotalPoints extends Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -27,8 +26,6 @@ class TotalPoints extends Component{
         this.setState({totalPoints: this.props.totalP});
     }
 
-
-
     render() {
         return (
             <Card
@@ -39,7 +36,7 @@ class TotalPoints extends Component{
                     {/*First Column*/}
                     <Col size={1}>
                         <View style={cardStyles.centerContainerItems}>
-                            <Icon size={36} name="trophy" color={"#2CC55E"}/>
+                            <Icon size={48} name="trophy" color={"#2CC55E"}/>
                         </View>
                     </Col>
 
@@ -49,7 +46,7 @@ class TotalPoints extends Component{
                     </Col>
 
                     {/*Points Column*/}
-                    <Col size={3}>
+                    <Col size={4}>
                         <View style={cardStyles.centerContainerItems}>
                             <Text style={cardStyles.pointsTextStyle}>
                                 {/*Change the state.totalPoints to change the total points of the card*/}
@@ -66,35 +63,4 @@ class TotalPoints extends Component{
     }
 }
 
-
-// Moved to style.js
-// const totalPointsStyle = StyleSheet.create({
-//     cardStyle: {
-//         height: hp(10),
-//         width: wp(90),
-//         borderRadius: 10,
-//     },
-//     center: {
-//         flex: 1,
-//         justifyContent: 'center',
-//         alignItems: 'center'
-//     },
-//     dividerStyle: {
-//         width: wp(8),
-//         borderWidth: 1,
-//         transform: [{ rotate: '90deg'}]
-//     },
-//     pointsTextStyle: {
-//         fontSize: 24,
-//         color: 'black'
-//     },
-//     centerContainerItems: {
-//         flex: 1,
-//         justifyContent: 'center',
-//         alignItems: 'center'
-//     }
-// });
-// Moved to style.js
-
-export default TotalPoints;
 

@@ -97,55 +97,48 @@ class TravelHistory extends React.Component<Props,State> {
     }
 
     render() {
-
         return (
-                    <ScrollView style={homeStyle.scrollView}>
+            <ScrollView style={homeStyle.scrollView}>
 
-                                <View style={[homeStyle.centerChildren, homeStyle.setViewWidth]}>
-                                    <TotalPoints totalP={this.state.totalP}/>
+                <View style={[homeStyle.centerChildren, homeStyle.setViewWidth]}>
+                    <TotalPoints totalP={this.state.totalP}/>
 
-                                </View>
-                        <Card >
-                            <Text style={{marginBottom: 10}}>
-                                {this.state.title + ' \n' + this.state.desc}
-                            </Text>
-                            {this.state.ready && this.state.ready2 && <Button
-                                backgroundColor='#03A9F4'
-                                buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-                                title={'Claim for ' + this.state.cost}
-                                onPress={this.checkAvailability(this.state.cost, this.state.totalP)}
-                            />}
-                        </Card>
-                        <Card >
-                            <Text style={{marginBottom: 10}}>
-                                {this.state.title2 + ' \n' + this.state.desc2}
-                            </Text>
-                            {this.state.ready && this.state.ready2 &&<Button
-                                backgroundColor='#03A9F4'
-                                buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-                                title={'Claim for ' + this.state.cost2}
-                                onPress={this.checkAvailability(this.state.cost2, this.state.totalP)}
-                            />}
-                        </Card>
-                        <Card >
-                            <Text style={{marginBottom: 10}}>
-                                {this.state.title3 + ' \n' + this.state.desc3}
-                            </Text>
-                            {this.state.ready && this.state.ready2 &&<Button
-                                backgroundColor='#03A9F4'
-                                buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-                                title={'Claim for ' + this.state.cost3}
-                                onPress={this.checkAvailability(this.state.cost3, this.state.totalP)}
-                            />}
-                        </Card>
+                </View>
+                <Card >
+                    <Text style={{marginBottom: 10}}>
+                        {this.state.title + ' \n' + this.state.desc}
+                    </Text>
+                    {this.state.ready && this.state.ready2 && <Button
+                        backgroundColor='#03A9F4'
+                        buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+                        title={'Claim for ' + this.state.cost}
+                        onPress={this.checkAvailability(this.state.cost, this.state.totalP)}
+                    />}
+                </Card>
+                <Card >
+                    <Text style={{marginBottom: 10}}>
+                        {this.state.title2 + ' \n' + this.state.desc2}
+                    </Text>
+                    {this.state.ready && this.state.ready2 &&<Button
+                        backgroundColor='#03A9F4'
+                        buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+                        title={'Claim for ' + this.state.cost2}
+                        onPress={this.checkAvailability(this.state.cost2, this.state.totalP)}
+                    />}
+                </Card>
+                <Card >
+                    <Text style={{marginBottom: 10}}>
+                        {this.state.title3 + ' \n' + this.state.desc3}
+                    </Text>
+                    {this.state.ready && this.state.ready2 &&<Button
+                        backgroundColor='#03A9F4'
+                        buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+                        title={'Claim for ' + this.state.cost3}
+                        onPress={this.checkAvailability(this.state.cost3, this.state.totalP)}
+                    />}
+                </Card>
 
-
-                    </ScrollView>
-
-
-
-
-
+            </ScrollView>
         )
     }
 }

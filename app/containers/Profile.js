@@ -25,11 +25,12 @@ class Profile extends Component {
     constructor(){
         super();
         this.state = {
+            userId: 0,
             username: '',
-            totalP: 0
+            totalPoints: 0
         };
-
-        console.log("=====");
+        this.handleClick = this.handleClick.bind(this);
+        console.log("Accessed Profile.js");
     };
 
     componentWillMount() {
@@ -41,17 +42,28 @@ class Profile extends Component {
                 var len = results.rows.length;
                 if (len > 0) {
                     var row = results.rows.item(0);
-                    this.setState({totalP:row.points, username: row.name + ' ' + row.surname});
+                    this.setState({totalPoints:row.points, username: row.name + ' ' + row.surname, userId: row.uid});
                 }
             });
         });
+    }
 
-
+    handleClick() {
+        // this function will setState and force a re-render and thus update the points
+        console.log('CLICKED!');
+        db.transaction((tx) => {
+            tx.executeSql('SELECT * FROM user WHERE uid=?', [this.state.userId], (tx, results)=>{
+                var len = results.rows.length;
+                if (len > 0) {
+                    var row = results.rows.item(0);
+                    // Sets Name, Points and Total Distance depending on userId
+                    this.setState({totalPoints:row.points});
+                }
+            });
+        });
     }
 
     render() {
-        // const { navigation } = this.props;
-        // const totalPoints = navigation.getParam('totalPoints', 100);
         return (
             <ImageBackground
                 style={{flex:1, height: hp(33), width: undefined}}
@@ -70,9 +82,14 @@ class Profile extends Component {
                             borderTopLeftRadius: 25,
                             width: wp(100),
                             backgroundColor: 'rgb(109,195,129)'}}>
-                            <Text style={{fontSize: 30, fontWeight: 'bold', color: 'white', paddingLeft: wp(5)}}>{this.state.username}</Text>
+                            {/* onPress trick to run the function so the component refreshes */}
+                            <TouchableOpacity onPress={this.handleClick()}>
+                                <Text style={{fontSize: 30, fontWeight: 'bold', color: 'white', paddingLeft: wp(5)}}>
+                                    {this.state.username}
+                                </Text>
+                            </TouchableOpacity>
                             <Text style={{fontSize: 20, color: 'white', paddingLeft: wp(5)}}>
-                                {this.state.totalP} Points
+                                {this.state.totalPoints} Points
                             </Text>
                         </View>
                     </Row>

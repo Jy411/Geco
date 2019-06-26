@@ -28,10 +28,12 @@
     "react-native-responsive-screen": "latest",
     "react-native-sqlite-storage": "^3.3.10",
     "react-native-svg": "latest",
+    "react-native-svg-charts": "latest",
     "react-native-vector-icons": "^6.4.2",
     "react-navigation": "latest",
     "react-navigation-material-bottom-tabs": "^1.0.0",
-    "rn-viewpager": "^1.2.9"
+    "rn-viewpager": "^1.2.9",
+    "d3-scale": "latest"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",

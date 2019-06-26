@@ -3,7 +3,7 @@ import {View, Text, Alert} from "react-native";
 import {Card, Button} from "react-native-elements";
 import {Col, Grid, Row} from "react-native-easy-grid";
 
-import {heightPercentageToDP as hp, widthPercentageToDP as wp} from "react-native-responsive-screen";
+import {widthPercentageToDP as wp} from "react-native-responsive-screen";
 import {cardStyles, redemptionCardStyle} from "../styles/style";
 import SQLite from "react-native-sqlite-storage";
 
