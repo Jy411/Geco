@@ -14,3 +14,5 @@ We do not expect to be able to fully finish this project by the deadline, but th
 # Similar Ideas
 
 There are many similar ideas with slightly different goals and functionalities already in development but there are none which have been mass-marketed to the general population. A simple Google search(or a search on Google Scholar) for research papers in the topic of eco-friendly mobility or smart mobility will provide many results, this area of research has been worked on before but is still in very early stages of development. There has been nothing full-scale to my knowledge.
+
+<img height="500" src="https://i.imgur.com/k3aYJXo.png"/><img height="500" src="https://i.imgur.com/NdS7NXA.png"/><img height="500" src="https://i.imgur.com/4bqxZnV.png"/><img height="500" src="https://i.imgur.com/obP1clS.png"/><img height="500" src="https://i.imgur.com/JbIqJc1.png"/>
